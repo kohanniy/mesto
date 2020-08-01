@@ -1,8 +1,10 @@
 .header {
-  max-width: 882px;
-  min-width: 300px;
-  padding: 45px 0 40px;
+  width: 69%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 45px 0 36px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
+  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,8 +16,9 @@
           align-items: center;
 }
 
-@media (max-width: 928px) {
+@media (max-width: 426px) {
   .header {
-    padding: 28px 27px 31px;
+    width: 100%;
+    padding: 28px 27px 27px;
   }
 }

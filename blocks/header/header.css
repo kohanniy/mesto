@@ -16,6 +16,12 @@
           align-items: center;
 }
 
+@media (max-width: 964px) {
+  .header {
+    width: 88%;
+  }
+}
+
 @media (max-width: 426px) {
   .header {
     width: 100%;

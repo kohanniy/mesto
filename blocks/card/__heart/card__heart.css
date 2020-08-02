@@ -1,0 +1,14 @@
+.card__heart {
+  width: 35px;
+  height: 32px;
+  background: transparent url(../../../images/cards-like-icon.svg) 50% 50% no-repeat;
+  border: 0;
+  outline: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.card__heart:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

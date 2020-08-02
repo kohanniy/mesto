@@ -1,0 +1,26 @@
+.cards {
+  width: 69%;
+  margin: 0 auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 18px 1fr 18px 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: auto 21px auto;
+  grid-template-rows: repeat(2, auto);
+  gap: 21px 18px;
+}
+
+@media (max-width: 768px) {
+  .cards {
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 426px) {
+  .cards {
+    width: 88%;
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+  }
+}

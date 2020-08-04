@@ -1,4 +1,4 @@
-.card__rating {
+.cards__rating {
   padding: 24px 15px 22px 21px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6,5 +6,5 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background-color: #ffffff;
+  background: #ffffff;
 }

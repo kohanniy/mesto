@@ -1,8 +1,10 @@
+@import url(././__logo/header__logo.css);
+
 .header {
   width: 69%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 45px 0 36px;
+  padding: 41px 3px 39px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
   margin: 0 auto;
   display: -webkit-box;
@@ -25,6 +27,6 @@
 @media (max-width: 426px) {
   .header {
     width: 100%;
-    padding: 25px 27px 30px;
+    padding: 34px 26px 31px;
   }
 }

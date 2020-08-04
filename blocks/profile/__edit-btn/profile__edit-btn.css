@@ -16,6 +16,7 @@
   grid-row: 1/2;
   -ms-grid-row-align: center;
       align-self: center;
+  margin-top: 5px;
 }
 
 .profile__edit-btn:hover {

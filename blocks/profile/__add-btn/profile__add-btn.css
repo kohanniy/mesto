@@ -22,7 +22,7 @@
   content: "";
   width: 22px;
   height: 2px;
-  background-color: #ffffff;
+  background: #ffffff;
   position: absolute;
   top: calc(50% - 1px);
   left: calc(50% - 11px);

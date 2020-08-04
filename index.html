@@ -4,79 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сервис Mesto</title>
-  <link rel="stylesheet" href="./project-page/index.css">
+  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
-  <header class="header centered-container">
-    <img src="./images/logo.svg" alt="логотип" class="logo">
-  </header>
-  <main class="main-content">
-    <section class="profile">
-      <img src="./images/profile-avatar.jpg" alt="фото профиля" class="profile__img">
-      <div class="profile__data">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__description">Исследователь океана</p>
-        <button type="button" class="profile__edit-btn"></button>
-      </div>
-      <button type="button" class="profile__add-btn"></button>
-    </section>
-    <section class="cards">
-      <article class="card">
-        <img src="./images/cards-karachaevsk.jpg" alt="Карачаевск" class="card__img">
-        <div class="card__rating">
-          <h2 class="card__title">Карачаевск</h2>
-          <button class="card__heart"></button>
+  <div class="page-container">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <main class="main-content">
+      <section class="profile">
+        <div style="background-image: url('./images/profile-avatar.jpg')" class="profile__img"></div>
+        <div class="profile__data">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__description">Исследователь океана</p>
+          <button type="button" aria-label="Изменить информацию о себе" class="profile__edit-btn"></button>
         </div>
-      </article>
-      <article class="card">
-        <img src="./images/cards-elbrus.jpg" alt="Эльбрус" class="card__img">
-        <div class="card__rating">
-          <h2 class="card__title">Гора Эльбрус</h2>
-          <button class="card__heart"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="./images/cards-dombay.jpg" alt="Домбай" class="card__img">
-        <div class="card__rating">
-          <h2 class="card__title">Домбай</h2>
-          <button class="card__heart"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="./images/cards-snowy-peaks.jpg" alt="Снежные пики" class="card__img">
-        <div class="card__rating">
-          <h2 class="card__title">Снежные пики</h2>
-          <button class="card__heart"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="./images/cards-track.jpg" alt="Лесная тропа к речке" class="card__img">
-        <div class="card__rating">
-          <h2 class="card__title">Лесная тропа к речке</h2>
-          <button class="card__heart"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="./images/cards-road.jpg" alt="Дорога на фоне гор" class="card__img">
-        <div class="card__rating">
-          <h2 class="card__title">Дорога на фоне гор</h2>
-          <button class="card__heart"></button>
-        </div>
-      </article>
-    </section>
-  </main>
-  <footer class="footer">
-    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-  </footer>
-  <section class="popup">
-    <form method="post" class="popup__container">
-      <h2 class="popup__heading">Редактировать профиль</h2>
-      <input type="text" name="fullname" class="popup__item popup__item_el_username" placeholder="Валентин Петров" required>
-      <input type="text" name="activity" class="popup__item popup__item_el_activity" placeholder="Род занятий. Например, программист" required>
-      <button type="submit" class="popup__save-btn">Сохранить</button>
-      <button type="button" class="popup__close-btn"></button>
-    </form>
-  </section>
-  <script src="./scripts/index.js"></script>
+        <button type="button" aria-label="Сохранить измененную информацию о себе" class="profile__add-btn"></button>
+      </section>
+      <section class="cards">
+        <ul class="cards__list">
+          <li class="cards__item">
+            <div style="background-image: url(./images/cards-karachaevsk.jpg)" class="cards__image"></div>
+            <div class="cards__rating">
+              <h2 class="cards__title">Карачаевск</h2>
+              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+            </div>
+          </li>
+          <li class="cards__item">
+            <div style="background-image: url(./images/cards-elbrus.jpg)" class="cards__image"></div>
+            <div class="cards__rating">
+              <h2 class="cards__title">Гора Эльбрус</h2>
+              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+            </div>
+          </li>
+          <li class="cards__item">
+            <div style="background-image: url(./images/cards-dombay.jpg)" class="cards__image"></div>
+            <div class="cards__rating">
+              <h2 class="cards__title">Домбай</h2>
+              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+            </div>
+          </li>
+          <li class="cards__item">
+            <div style="background-image: url(./images/cards-snowy-peaks.jpg)" class="cards__image"></div>
+            <div class="cards__rating">
+              <h2 class="cards__title">Снежные пики</h2>
+              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+            </div>
+          </li>
+          <li class="cards__item">
+            <div style="background-image: url(./images/cards-track.jpg)" class="cards__image"></div>
+            <div class="cards__rating">
+              <h2 class="cards__title">Лесная тропа к речке</h2>
+              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+            </div>
+          </li>
+          <li class="cards__item">
+            <div style="background-image: url(./images/cards-road.jpg)" class="cards__image"></div>
+            <div class="cards__rating">
+              <h2 class="cards__title">Дорога на фоне гор</h2>
+              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+    <div class="popup">
+      <form name="about-user" method="post" class="popup__container">
+        <h3 class="popup__heading">Редактировать профиль</h3>
+        <input type="text" name="fullname" class="popup__item popup__item_element_username" placeholder="Валентин Петров" required>
+        <input type="text" name="activity" class="popup__item popup__item_element_activity" placeholder="Род занятий. Например, программист" required>
+        <button type="submit" class="popup__save-btn">Сохранить</button>
+        <button type="button" class="popup__close-btn"></button>
+      </form>
+    </div>
+    <script src="./scripts/index.js"></script>
+  </div>
 </body>
 </html>

@@ -18,24 +18,24 @@ let popupContainer = popup.querySelector('.popup__container');
 
 
 //Функция открытия и закрытия попапа
-function openClosePopup() {
-  if (popup.classList.contains('popup_opened') === false) {
+function popupOpenClose() {
+  if (!popup.classList.contains('popup_opened')) {
     popupUserName.value = profileName.textContent;
     popupActivity.value = profileDescription.textContent;
   }
   popup.classList.toggle('popup_opened');
 }
 
-editButton.addEventListener('click', openClosePopup);
+editButton.addEventListener('click', popupOpenClose);
 
-popupCloseButton.addEventListener('click', openClosePopup);
+popupCloseButton.addEventListener('click', popupOpenClose);
 
 //Измненение и сохранение информации о себе
 function popupContainerSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = popupUserName.value;
   profileDescription.textContent = popupActivity.value;
-  openClosePopup();
+  popupOpenClose();
 }
 
 popupContainer.addEventListener('submit', popupContainerSubmitHandler);

@@ -9,11 +9,14 @@
 @import url(./__close-btn/popup__close-btn.css);
 
 .popup {
-  display: none;
   width: 100%;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, .5);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s, opacity 0.3s linear;
+  transition: visibility 0s, opacity 0.3s linear;
 }

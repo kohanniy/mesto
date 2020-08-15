@@ -76,8 +76,17 @@
         <h3 class="popup__heading">Редактировать профиль</h3>
         <input type="text" name="fullname" class="popup__item popup__item_element_username" placeholder="Валентин Петров" required>
         <input type="text" name="activity" class="popup__item popup__item_element_activity" placeholder="Род занятий. Например, программист" required>
-        <button type="submit" class="popup__save-btn">Сохранить</button>
-        <button type="button" class="popup__close-btn"></button>
+        <button type="submit" class="popup__button popup__save-btn">Сохранить</button>
+        <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
+      </form>
+    </div>
+    <div class="popup">
+      <form name="about-user" method="post" class="popup__container">
+        <h3 class="popup__heading">Новое место</h3>
+        <input type="text" name="place-name" class="popup__item popup__item_element_place-name" placeholder="Название" required>
+        <input type="text" name="picture-link" class="popup__item popup__item_element_picture-link" placeholder="Ссылка на картинку" required>
+        <button type="submit" class="popup__button popup__save-btn">Создать</button>
+        <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
       </form>
     </div>
     <script src="./scripts/index.js"></script>

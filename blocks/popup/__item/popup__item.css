@@ -15,11 +15,16 @@
   padding: 11px 0;
 }
 
-.popup__item::placeholder {
-  font-style: italic;
-}
-
 .popup__item:focus {
   border: 2px solid gray;
   border-radius: 4px;
+}
+
+@media (max-width: 492px) {
+  .popup__item {
+    margin-bottom: 11px;
+    padding: 9px 0;
+    font-size: 12px;
+    line-height: 1.25;
+  }
 }

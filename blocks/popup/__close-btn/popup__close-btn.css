@@ -16,11 +16,12 @@
   cursor: pointer;
 }
 
-@media (max-width: 530px) {
+@media (max-width: 492px) {
   .popup__close-btn {
-    top: -55px;
-    right: 50%;
-    -webkit-transform: translateX(50%);
-            transform: translateX(50%);
+    width: 42px;
+    height: 42px;
+    background: url(../../../images/popup-close-icon-mobile.svg);
+    top: -34px;
+    right: -33px;
   }
 }

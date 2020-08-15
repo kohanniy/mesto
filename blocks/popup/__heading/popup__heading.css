@@ -7,3 +7,12 @@
   margin: 0;
   margin-bottom: 37px;
 }
+
+@media (max-width: 492px) {
+  .popup__heading {
+    max-width: 185px;
+    font-size: 18px;
+    line-height: 1.22;
+    margin-bottom: 20px;
+  }
+}

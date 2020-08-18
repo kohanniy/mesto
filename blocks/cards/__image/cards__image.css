@@ -3,4 +3,5 @@
   height: 282px;
   background: center no-repeat;
   background-size: cover;
+  display: block;
 }

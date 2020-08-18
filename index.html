@@ -13,59 +13,17 @@
     </header>
     <main class="main-content">
       <section class="profile">
-        <div style="background-image: url('./images/profile-avatar.jpg')" class="profile__img"></div>
+        <div style="background-image: url(./images/profile-avatar.jpg);" class="profile__img"></div>
         <div class="profile__data">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__description">Исследователь океана</p>
           <button type="button" aria-label="Изменить информацию о себе" class="profile__edit-btn"></button>
         </div>
-        <button type="button" aria-label="Сохранить измененную информацию о себе" class="profile__add-btn"></button>
+        <button type="button" aria-label="Добавить фото" class="profile__add-btn"></button>
       </section>
       <section class="cards">
         <ul class="cards__list">
-          <li class="cards__item">
-            <div style="background-image: url(./images/cards-karachaevsk.jpg)" class="cards__image"></div>
-            <button type="button" aria-label="Удалить" class="cards__delete-btn"></button>
-            <div class="cards__rating">
-              <h2 class="cards__title">Карачаевск</h2>
-              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <div style="background-image: url(./images/cards-elbrus.jpg)" class="cards__image"></div>
-            <div class="cards__rating">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <div style="background-image: url(./images/cards-dombay.jpg)" class="cards__image"></div>
-            <div class="cards__rating">
-              <h2 class="cards__title">Домбай</h2>
-              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <div style="background-image: url(./images/cards-snowy-peaks.jpg)" class="cards__image"></div>
-            <div class="cards__rating">
-              <h2 class="cards__title">Снежные пики</h2>
-              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <div style="background-image: url(./images/cards-track.jpg)" class="cards__image"></div>
-            <div class="cards__rating">
-              <h2 class="cards__title">Лесная тропа к речке</h2>
-              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <div style="background-image: url(./images/cards-road.jpg)" class="cards__image"></div>
-            <div class="cards__rating">
-              <h2 class="cards__title">Дорога на фоне гор</h2>
-              <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-            </div>
-          </li>
+
         </ul>
       </section>
     </main>
@@ -90,6 +48,16 @@
         <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
       </form>
     </div>
+    <template id="cardItemTemplate">
+      <li class="cards__item">
+        <img class="cards__image" src="">
+        <button type="button" aria-label="Удалить" class="cards__delete-btn"></button>
+        <div class="cards__rating">
+          <h2 class="cards__title"></h2>
+          <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </div>
 </body>

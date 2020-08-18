@@ -27,6 +27,43 @@ const initialCards = [
 
 let cardsListContainer = document.querySelector('.cards__list');
 
+let editProfile = document.querySelector('.edit-profile');
+
+let profile = document.querySelector('.profile');
+
+let profileName = profile.querySelector('.profile__name');
+
+let profileDescription = profile.querySelector('.profile__description');
+
+let profileEditButton = profile.querySelector('.profile__edit-btn');
+
+let username = editProfile.querySelector('.username');
+
+let activity = editProfile.querySelector('.activity');
+
+let addPhoto = document.querySelector('.add-photo');
+
+let addPhotoButton = profile.querySelector('.profile__add-btn');
+
+let popups = document.querySelectorAll('.popup');
+
+
+//Функция открытия попапа для редактирования профиля
+let editProfileOpen = () => {
+  if (!editProfile.classList.contains('popup_opened')) {
+    username.value = profileName.textContent;
+    activity.value = profileDescription.textContent;
+  }
+
+  editProfile.classList.add('popup_opened');
+};
+
+//Функция открытия попапа для добавления фото
+let addPhotoOpen = () => {
+  addPhoto.classList.add('popup_opened')
+};
+
+//Функция добавления фото из представленного массива при загрузке странице
 let addCardToContainer = item => {
   let cardTemplate = document.querySelector('#cardItemTemplate').content;
 
@@ -39,54 +76,51 @@ let addCardToContainer = item => {
   cardsListContainer.prepend(cardElement);
 }
 
+//Открытие попапов
+document.addEventListener('click', (evt) => {
+  let elementTarget = evt.target;
+  if (elementTarget.classList.contains('profile__edit-btn')) {
+    editProfileOpen();
+  } else if (elementTarget.classList.contains('profile__add-btn')) {
+      addPhotoOpen();
+    }
+  return;
+});
+
+//Закрытие попапов
+popups.forEach((popup) => {
+  let popupClose = () => {
+    popup.classList.remove('popup_opened');
+  };
+  let closeButton = popup.querySelector('.popup__close-btn');
+  closeButton.addEventListener('click', popupClose);
+});
+
+//Добавление фото при загрузке страницы
 initialCards.forEach(addCardToContainer);
 
-// initialCards.forEach(item => {
-//   let templateInitialCard = `
-//     <li class="cards__item">
-//       <div style="background-image: url(${item.link})" class="cards__image"></div>
-//       <button type="button" aria-label="Удалить" class="cards__delete-btn"></button>
-//       <div class="cards__rating">
-//         <h2 class="cards__title">${item.name}</h2>
-//         <button type="button" aria-label="Поставить лайк" class="cards__heart"></button>
-//       </div>
-//     </li>
-//   `
-//   cardsListContainer.insertAdjacentHTML('afterbegin', templateInitialCard)
-// })
+
+// let editProfile = document.querySelector('.popup_type_profile');
+
+// let profileName = document.querySelector('.profile__name');
+
+// let profileDescription = document.querySelector('.profile__description');
+
+// let userName = editProfile.querySelector('.popup__item_element_username');
+
+// let userActivity = editProfile.querySelector('.popup__item_element_activity');
+
+// let editButton = document.querySelector('.profile__edit-btn');
+
+// let popupCloseButton = editProfile.querySelector('.popup__close-btn');
+
+// let saveButton = editProfile.querySelector('.popup__save-btn');
+
+// let popupContainer = editProfile.querySelector('.popup__container');
 
 
 
-let popup = document.querySelector('.popup');
 
-let profileName = document.querySelector('.profile__name');
-
-let profileDescription = document.querySelector('.profile__description');
-
-let popupUserName = popup.querySelector('.popup__item_element_username');
-
-let popupActivity = popup.querySelector('.popup__item_element_activity');
-
-let editButton = document.querySelector('.profile__edit-btn');
-
-let popupCloseButton = popup.querySelector('.popup__close-btn');
-
-let saveButton = popup.querySelector('.popup__save-btn');
-
-let popupContainer = popup.querySelector('.popup__container');
-
-//Функция открытия и закрытия попапа
-function popupOpenClose() {
-  if (!popup.classList.contains('popup_opened')) {
-    popupUserName.value = profileName.textContent;
-    popupActivity.value = profileDescription.textContent;
-  }
-  popup.classList.toggle('popup_opened');
-}
-
-editButton.addEventListener('click', popupOpenClose);
-
-popupCloseButton.addEventListener('click', popupOpenClose);
 
 //Измненение и сохранение информации о себе
 function popupContainerSubmitHandler (evt) {

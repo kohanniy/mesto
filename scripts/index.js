@@ -55,7 +55,13 @@ let popups = document.querySelectorAll('.popup');
 
 let cardsList = document.querySelector('.cards__list');
 
-//Функция добавления и удаления карточки и лайков
+let viewPic = document.querySelector('.view-pic');
+
+let popupPic = viewPic.querySelector('.popup__pic');
+
+let popupPicCaption = viewPic.querySelector('.popup__pic-caption');
+
+//Функция добавления и удаления карточки и лайков, открытия попапа с картинкой карточки
 let addCardToList = (placeName, pictureLink) => {
   let cardTemplate = document.querySelector('#cardItemTemplate').content;
 
@@ -76,6 +82,14 @@ let addCardToList = (placeName, pictureLink) => {
   deleteButton.addEventListener('click', evt => {
     let cardsItem = evt.target.closest('.cards__item');
     cardsItem.remove();
+  });
+
+  //открытие попапа с картинкой карточки
+  let cardsImage = cardElement.querySelector('.cards__image');
+  cardsImage.addEventListener('click', evt => {
+    viewPic.classList.add('popup_opened');
+    popupPic.src = evt.target.src;
+    popupPicCaption.textContent = evt.target.parentElement.querySelector('.cards__title').textContent;
   });
 
   //добавление карточки на сайт

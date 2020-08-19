@@ -25,67 +25,67 @@ const initialCards = [
   }
 ];
 
-let profile = document.querySelector('.profile');
+const profile = document.querySelector('.profile');
 
-let profileName = profile.querySelector('.profile__name');
+const profileName = profile.querySelector('.profile__name');
 
-let profileDescription = profile.querySelector('.profile__description');
+const profileDescription = profile.querySelector('.profile__description');
 
-let editButton = profile.querySelector('.profile__edit-btn');
+const editButton = profile.querySelector('.profile__edit-btn');
 
-let addCardButton = profile.querySelector('.profile__add-btn')
+const addCardButton = profile.querySelector('.profile__add-btn')
 
-let editProfile = document.querySelector('.edit-profile');
+const editProfile = document.querySelector('.edit-profile');
 
-let userForm = editProfile.querySelector('.user-form');
+const userForm = editProfile.querySelector('.user-form');
 
-let username = userForm.querySelector('.username');
+const username = userForm.querySelector('.username');
 
-let activity = userForm.querySelector('.activity');
+const activity = userForm.querySelector('.activity');
 
-let addCard = document.querySelector('.add-card');
+const addCard = document.querySelector('.add-card');
 
-let placeForm = addCard.querySelector('.place-form');
+const placeForm = addCard.querySelector('.place-form');
 
-let placeName = placeForm.querySelector('.place-name');
+const placeName = placeForm.querySelector('.place-name');
 
-let pictureLink = placeForm.querySelector('.picture-link')
+const pictureLink = placeForm.querySelector('.picture-link')
 
-let popups = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 
-let cardsList = document.querySelector('.cards__list');
+const cardsList = document.querySelector('.cards__list');
 
-let viewPic = document.querySelector('.view-pic');
+const viewPic = document.querySelector('.view-pic');
 
-let popupPic = viewPic.querySelector('.popup__pic');
+const popupPic = viewPic.querySelector('.popup__pic');
 
-let popupPicCaption = viewPic.querySelector('.popup__pic-caption');
+const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 
 //Функция добавления и удаления карточки и лайков, открытия попапа с картинкой карточки
-let addCardToList = (placeName, pictureLink) => {
-  let cardTemplate = document.querySelector('#cardItemTemplate').content;
+const addCardToList = (placeName, pictureLink) => {
+  const cardTemplate = document.querySelector('#cardItemTemplate').content;
 
-  let cardElement = cardTemplate.cloneNode(true);
+  const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.cards__title').textContent = placeName;
   cardElement.querySelector('.cards__image').src = pictureLink;
 
   //добавление и удаление лайка
-  let likeButton = cardElement.querySelector('.cards__heart');
+  const likeButton = cardElement.querySelector('.cards__heart');
   likeButton.addEventListener('click', evt => {
-    let eventTarget = evt.target;
+    const eventTarget = evt.target;
     eventTarget.classList.toggle('cards__heart_active');
   });
 
   //удаление карточки
-  let deleteButton = cardElement.querySelector('.cards__delete-btn');
+  const deleteButton = cardElement.querySelector('.cards__delete-btn');
   deleteButton.addEventListener('click', evt => {
-    let cardsItem = evt.target.closest('.cards__item');
+    const cardsItem = evt.target.closest('.cards__item');
     cardsItem.remove();
   });
 
   //открытие попапа с картинкой карточки
-  let cardsImage = cardElement.querySelector('.cards__image');
+  const cardsImage = cardElement.querySelector('.cards__image');
   cardsImage.addEventListener('click', evt => {
     viewPic.classList.add('popup_opened');
     popupPic.src = evt.target.src;
@@ -98,8 +98,8 @@ let addCardToList = (placeName, pictureLink) => {
 
 //Добавление карточек из массива
 initialCards.forEach(item => {
-  let placeName = item.name;
-  let pictureLink = item.link;
+  const placeName = item.name;
+  const pictureLink = item.link;
 
   addCardToList(placeName, pictureLink);
 });
@@ -121,7 +121,7 @@ addCardButton.addEventListener('click', () => {
 
 //Закрытие каждого попапа
 popups.forEach(popup => {
-  let closeButton = popup.querySelector('.popup__close-btn');
+  const closeButton = popup.querySelector('.popup__close-btn');
 
   closeButton.addEventListener('click', () => {
     popup.classList.remove('popup_opened');

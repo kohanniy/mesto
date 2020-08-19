@@ -33,7 +33,7 @@ let profileDescription = profile.querySelector('.profile__description');
 
 let editButton = profile.querySelector('.profile__edit-btn');
 
-let addPhotoButton = profile.querySelector('.profile__add-btn')
+let addCardButton = profile.querySelector('.profile__add-btn')
 
 let editProfile = document.querySelector('.edit-profile');
 
@@ -43,9 +43,9 @@ let username = userForm.querySelector('.username');
 
 let activity = userForm.querySelector('.activity');
 
-let addPhoto = document.querySelector('.add-photo');
+let addCard = document.querySelector('.add-card');
 
-let placeForm = addPhoto.querySelector('.place-form');
+let placeForm = addCard.querySelector('.place-form');
 
 let placeName = placeForm.querySelector('.place-name');
 
@@ -101,8 +101,8 @@ editButton.addEventListener('click', () => {
 });
 
 //Открытие попапа с формой для добавления карточки
-addPhotoButton.addEventListener('click', () => {
-  addPhoto.classList.add('popup_opened');
+addCardButton.addEventListener('click', () => {
+  addCard.classList.add('popup_opened');
 });
 
 //Закрытие каждого попапа
@@ -130,5 +130,5 @@ placeForm.addEventListener('submit', evt => {
 
   addCardToList(placeName.value, pictureLink.value)
 
-  addPhoto.classList.remove('popup_opened');
+  addCard.classList.remove('popup_opened');
 });

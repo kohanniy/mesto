@@ -31,7 +31,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     <div class="popup edit-profile">
-      <form name="about-user" method="post" class="popup__container user-form">
+      <form name="about-user" method="post" class="popup__form user-form">
         <h3 class="popup__heading">Редактировать профиль</h3>
         <input type="text" name="username" class="popup__item username" placeholder="Валентин Петров" required>
         <input type="text" name="activity" class="popup__item activity" placeholder="Род занятий. Например, программист" required>
@@ -39,14 +39,23 @@
         <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
       </form>
     </div>
-    <div class="popup add-photo">
-      <form name="place" method="post" class="popup__container place-form">
+    <div class="popup add-card">
+      <form name="place" method="post" class="popup__form place-form">
         <h3 class="popup__heading">Новое место</h3>
         <input type="text" name="place-name" class="popup__item place-name" placeholder="Название" required>
         <input type="text" name="picture-link" class="popup__item picture-link" placeholder="Ссылка на картинку" required>
         <button type="submit" class="popup__button">Создать</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
       </form>
+    </div>
+    <div class="popup view-pic popup_opened">
+      <div class="popup__container">
+        <figure class="popup__pic-wrap">
+          <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="" class="popup__pic">
+          <figcaption class="popup__pic-caption">Челябинская область</figcaption>
+        </figure>
+        <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
+      </div>
     </div>
     <template id="cardItemTemplate">
       <li class="cards__item">

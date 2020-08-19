@@ -55,21 +55,40 @@ let popups = document.querySelectorAll('.popup');
 
 let cardsList = document.querySelector('.cards__list');
 
-let cardTemplate = document.querySelector('#cardItemTemplate').content;
-
-//Функция добавления фото из представленного массива при загрузке страницы
-let addCardToList = item => {
+//Функция добавления и удаления карточки и лайков
+let addCardToList = (placeName, pictureLink) => {
+  let cardTemplate = document.querySelector('#cardItemTemplate').content;
 
   let cardElement = cardTemplate.cloneNode(true);
 
-  cardElement.querySelector('.cards__title').textContent = item.name;
+  cardElement.querySelector('.cards__title').textContent = placeName;
+  cardElement.querySelector('.cards__image').src = pictureLink;
 
-  cardElement.querySelector('.cards__image').src = item.link;
+  //добавление и удаление лайка
+  let likeButton = cardElement.querySelector('.cards__heart');
+  likeButton.addEventListener('click', evt => {
+    let eventTarget = evt.target;
+    eventTarget.classList.toggle('cards__heart_active');
+  });
 
+  //удаление карточки
+  let deleteButton = cardElement.querySelector('.cards__delete-btn');
+  deleteButton.addEventListener('click', evt => {
+    let cardsItem = evt.target.closest('.cards__item');
+    cardsItem.remove();
+  });
+
+  //добавление карточки на сайт
   cardsList.prepend(cardElement);
-}
+};
 
-initialCards.forEach(addCardToList);
+//Добавление карточек из массива
+initialCards.forEach(item => {
+  let placeName = item.name;
+  let pictureLink = item.link;
+
+  addCardToList(placeName, pictureLink);
+});
 
 //Открытие попапа с формой для редактирования профиля
 editButton.addEventListener('click', () => {
@@ -81,7 +100,7 @@ editButton.addEventListener('click', () => {
   editProfile.classList.add('popup_opened');
 });
 
-//Открытие попапа с формой для добавления фотографии места
+//Открытие попапа с формой для добавления карточки
 addPhotoButton.addEventListener('click', () => {
   addPhoto.classList.add('popup_opened');
 });
@@ -105,16 +124,11 @@ userForm.addEventListener('submit', evt => {
   editProfile.classList.remove('popup_opened');
 });
 
-//Добавление собственной фотографии места
+//Добавление карточки пользователем
 placeForm.addEventListener('submit', evt => {
   evt.preventDefault();
 
-  let cardElement = cardTemplate.cloneNode(true);
-
-  cardElement.querySelector('.cards__title').textContent = placeName.value;
-  cardElement.querySelector('.cards__image').src = pictureLink.value;
-
-  cardsList.prepend(cardElement);
+  addCardToList(placeName.value, pictureLink.value)
 
   addPhoto.classList.remove('popup_opened');
 });

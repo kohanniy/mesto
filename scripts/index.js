@@ -61,9 +61,10 @@ const popupPic = viewPic.querySelector('.popup__pic');
 
 const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 
+const cardTemplate = document.querySelector('#cardItemTemplate').content;
+
 //Функция добавления и удаления карточки и лайков, открытия попапа с картинкой карточки
 const addCardToList = (placeName, pictureLink) => {
-  const cardTemplate = document.querySelector('#cardItemTemplate').content;
 
   const cardElement = cardTemplate.cloneNode(true);
 

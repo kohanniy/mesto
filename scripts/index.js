@@ -146,4 +146,6 @@ placeForm.addEventListener('submit', evt => {
   addCardToList(placeName.value, pictureLink.value)
 
   addCard.classList.remove('popup_opened');
+
+  placeForm.reset();
 });

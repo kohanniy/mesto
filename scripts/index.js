@@ -1,27 +1,27 @@
 const initialCards = [
   {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
   {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
   },
   {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
   },
   {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
   },
   {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
   },
   {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
 
@@ -87,7 +87,7 @@ const createCard = (placeName, pictureLink) => {
   //открытие попапа с картинкой карточки
   const cardsImage = cardElement.querySelector('.cards__image');
   cardsImage.addEventListener('click', evt => {
-    viewPic.classList.add('popup_opened');
+    openPopup(viewPic);
     popupPic.src = evt.target.src;
     popupPicCaption.textContent = evt.target.parentElement.querySelector('.cards__title').textContent;
   });
@@ -99,6 +99,16 @@ const createCard = (placeName, pictureLink) => {
 const addCardToList = (placeName, pictureLink) => {
   cardsList.prepend(createCard(placeName, pictureLink));
 };
+
+//Функция открытия попапа
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+};
+
+//Функция закрытия попапа
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+}
 
 //Добавление карточек из массива
 initialCards.forEach(item => {
@@ -114,12 +124,12 @@ editButton.addEventListener('click', () => {
     activity.value = profileDescription.textContent;
   }
 
-  editProfile.classList.add('popup_opened');
+  openPopup(editProfile);
 });
 
 //Открытие попапа с формой для добавления карточки
 addCardButton.addEventListener('click', () => {
-  addCard.classList.add('popup_opened');
+  openPopup(addCard);
 });
 
 //Закрытие каждого попапа
@@ -127,7 +137,7 @@ popups.forEach(popup => {
   const closeButton = popup.querySelector('.popup__close-btn');
 
   closeButton.addEventListener('click', () => {
-    popup.classList.remove('popup_opened');
+    closePopup(popup);
   });
 });
 

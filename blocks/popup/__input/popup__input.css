@@ -1,4 +1,4 @@
-.popup__item {
+.popup__input {
   border: none;
   outline: none;
   width: 100%;
@@ -15,13 +15,13 @@
   padding: 11px 0;
 }
 
-.popup__item:focus {
+.popup__input:focus {
   border: 2px solid gray;
   border-radius: 4px;
 }
 
 @media (max-width: 492px) {
-  .popup__item {
+  .popup__input {
     margin-bottom: 11px;
     padding: 9px 0;
     font-size: 12px;

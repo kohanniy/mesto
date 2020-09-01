@@ -27,137 +27,169 @@ const initialCards = [
 
 const profile = document.querySelector('.profile');
 
+const editProfile = document.querySelector('.popup_type_edit-profile');
+
+const editProfileOpenButton = profile.querySelector('.profile__edit-btn');
+
 const profileName = profile.querySelector('.profile__name');
 
 const profileDescription = profile.querySelector('.profile__description');
 
-const editButton = profile.querySelector('.profile__edit-btn');
+const username = editProfile.querySelector('.username');
 
-const addCardButton = profile.querySelector('.profile__add-btn')
+const activity = editProfile.querySelector('.activity');
 
-const editProfile = document.querySelector('.edit-profile');
+const editProfileCloseButton = editProfile.querySelector('.popup__close-btn_for_edit-profile');
 
 const userForm = editProfile.querySelector('.user-form');
 
-const username = userForm.querySelector('.username');
+const addCard = document.querySelector('.popup_type_add-card');
 
-const activity = userForm.querySelector('.activity');
+const addCardOpenButton = profile.querySelector('.profile__add-btn');
 
-const addCard = document.querySelector('.add-card');
+const addCardCloseButton = addCard.querySelector('.popup__close-btn_for_add-card');
+
+const cardTemplate = document.querySelector('#cardItemTemplate').content;
+
+const cardsList = document.querySelector('.cards__list');
 
 const placeForm = addCard.querySelector('.place-form');
 
 const placeName = placeForm.querySelector('.place-name');
 
-const pictureLink = placeForm.querySelector('.picture-link')
+const pictureLink = placeForm.querySelector('.picture-link');
 
-const popups = document.querySelectorAll('.popup');
-
-const cardsList = document.querySelector('.cards__list');
-
-const viewPic = document.querySelector('.view-pic');
+const viewPic = document.querySelector('.popup_type_view-pic');
 
 const popupPic = viewPic.querySelector('.popup__pic');
 
 const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 
-const cardTemplate = document.querySelector('#cardItemTemplate').content;
+const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic');
 
-//Функция создания карточки, добавления и удаления лайков, открытия попапа с картинкой карточки
-const createCard = (placeName, pictureLink) => {
-  const cardElement = cardTemplate.cloneNode(true);
-
-  cardElement.querySelector('.cards__title').textContent = placeName;
-  cardElement.querySelector('.cards__image').src = pictureLink;
-
-  //добавление и удаление лайка
-  const likeButton = cardElement.querySelector('.cards__heart');
-  likeButton.addEventListener('click', evt => {
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle('cards__heart_active');
-  });
-
-  //удаление карточки
-  const deleteButton = cardElement.querySelector('.cards__delete-btn');
-  deleteButton.addEventListener('click', evt => {
-    const cardsItem = evt.target.closest('.cards__item');
-    cardsItem.remove();
-  });
-
-  //открытие попапа с картинкой карточки
-  const cardsImage = cardElement.querySelector('.cards__image');
-  cardsImage.addEventListener('click', evt => {
-    openPopup(viewPic);
-    popupPic.src = evt.target.src;
-    popupPicCaption.textContent = evt.target.parentElement.querySelector('.cards__title').textContent;
-  });
-
-  return cardElement;
-};
-
-//Функция добавления карточки на сайт
-const addCardToList = (placeName, pictureLink) => {
-  cardsList.prepend(createCard(placeName, pictureLink));
-};
-
-//Функция открытия попапа
+//Функция, которая открывает нужный попап
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 };
 
-//Функция закрытия попапа
+//Функция, которая закрывает нужный попап
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+};
+
+//Функция, которая добавляет изменения в данные профиля
+const userFormSubmitHandler = (evt) => {
+  evt.preventDefault();
+  profileName.textContent = username.value;
+  profileDescription.textContent = activity.value;
+  closePopup(editProfile);
+};
+
+//Функция, которая создает карточку
+const createCard = (placeName, pictureLink) => {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImage = cardElement.querySelector('.cards__image');
+  const cardTitle = cardElement.querySelector('.cards__title');
+  const likeButton = cardElement.querySelector('.cards__heart');
+  const deleteButton = cardElement.querySelector('.cards__delete-btn');
+
+  //Функция, которая добавляет и удаляет лайк карточке
+  const addOrCancelLike = () => {
+    likeButton.classList.toggle('cards__heart_active');
+  };
+
+  //Функция, которая удаляет карточку
+  const deleteCard = (evt) => {
+    evt.target.closest('.cards__item').remove();
+  };
+
+  //Функция, которая открывает попап с картинкой в полном размере
+  const openViewPic = () => {
+    openPopup(viewPic);
+    popupPic.src = cardImage.src;
+    popupPicCaption.textContent = cardTitle.textContent;
+  };
+
+  cardImage.src = pictureLink;
+  cardTitle.textContent = placeName;
+
+  //Ставим и убираем лайк
+  likeButton.addEventListener('click', addOrCancelLike);
+
+  //Удаляем карточку
+  deleteButton.addEventListener('click', deleteCard);
+
+  //Открываем попап с картинкой в полном размере
+  cardImage.addEventListener('click', openViewPic);
+
+  return cardElement;
+};
+
+//Функция, которая добавляет карточку на сайт
+const addCardToList = (placeName, pictureLink) => {
+  cardsList.prepend(createCard(placeName, pictureLink));
 }
 
-//Добавление карточек из массива
-initialCards.forEach(item => {
-  const placeName = item.name;
-  const pictureLink = item.link;
-  addCardToList(placeName, pictureLink);
-});
+//Функция, которая позволяет пользователю добавить карточку на сайт
+const placeFormSubmitHandler = (evt) => {
+  evt.preventDefault();
+  addCardToList(placeName.value, pictureLink.value);
+  closePopup(addCard);
+  placeName.value = '';
+  pictureLink.value = '';
+};
 
-//Открытие попапа с формой для редактирования профиля
-editButton.addEventListener('click', () => {
+//Функция, которая открывает попап для редактирования данных профиля
+const openEditProfile = () => {
   if (!editProfile.classList.contains('popup_opened')) {
     username.value = profileName.textContent;
     activity.value = profileDescription.textContent;
   }
-
   openPopup(editProfile);
-});
+};
 
-//Открытие попапа с формой для добавления карточки
-addCardButton.addEventListener('click', () => {
+//Функция, которая закрывает попап для редактирования данных профиля
+const closeEditProfile = () => {
+  closePopup(editProfile);
+};
+
+//Функция, которая открывает попап для добавления карточки на сайт
+const openAddCard = () => {
   openPopup(addCard);
+};
+
+//Функция, которая закрывает попал для добавления карточки на сайт
+const closeAddCard = () => {
+  closePopup(addCard);
+};
+
+//Функция, которая закрывает попап с картинкой в полном размере
+const closeViewPic = () => {
+  closePopup(viewPic);
+};
+
+//Открываем попап для редактирования данных профиля
+editProfileOpenButton.addEventListener('click', openEditProfile);
+
+//Закрываем попап для редактирования данных профиля
+editProfileCloseButton.addEventListener('click', closeEditProfile);
+
+//Редактируем данные профиля
+userForm.addEventListener('submit', userFormSubmitHandler);
+
+//Открываем попап для добавления карточки на сайт
+addCardOpenButton.addEventListener('click', openAddCard);
+
+//Закрываем попап для добавления карточки на сайт
+addCardCloseButton.addEventListener('click', closeAddCard);
+
+//Добавляем карточки из заданного массива
+initialCards.forEach((item) => {
+  addCardToList(item.name, item.link);
 });
 
-//Закрытие каждого попапа
-popups.forEach(popup => {
-  const closeButton = popup.querySelector('.popup__close-btn');
+//Добавляем свои карточки
+placeForm.addEventListener('submit', placeFormSubmitHandler);
 
-  closeButton.addEventListener('click', () => {
-    closePopup(popup);
-  });
-});
-
-//Изменение и сохранение данных профиля
-userForm.addEventListener('submit', evt => {
-  evt.preventDefault();
-
-  profileName.textContent = username.value;
-  profileDescription.textContent = activity.value;
-
-  editProfile.classList.remove('popup_opened');
-});
-
-//Добавление карточки пользователем
-placeForm.addEventListener('submit', evt => {
-  evt.preventDefault();
-
-  addCardToList(placeName.value, pictureLink.value)
-
-  addCard.classList.remove('popup_opened');
-
-  placeForm.reset();
-});
+//Закрываем попап с картинкой в полном размере
+viewPicCloseButton.addEventListener('click', closeViewPic);

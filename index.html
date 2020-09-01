@@ -30,36 +30,36 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup edit-profile">
+    <div class="popup popup_type_edit-profile">
       <form name="about-user" method="post" class="popup__form user-form">
         <h3 class="popup__heading">Редактировать профиль</h3>
-        <input type="text" name="username" class="popup__item username" placeholder="Валентин Петров" required>
-        <input type="text" name="activity" class="popup__item activity" placeholder="Род занятий. Например, программист" required>
+        <input type="text" name="username" class="popup__input username" placeholder="Валентин Петров" required>
+        <input type="text" name="activity" class="popup__input activity" placeholder="Род занятий. Например, программист" required>
         <button type="submit" class="popup__button">Сохранить</button>
-        <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
+        <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_edit-profile"></button>
       </form>
     </div>
-    <div class="popup add-card">
+    <div class="popup popup_type_add-card">
       <form name="place" method="post" class="popup__form place-form">
         <h3 class="popup__heading">Новое место</h3>
-        <input type="text" name="place-name" class="popup__item place-name" placeholder="Название" required>
-        <input type="text" name="picture-link" class="popup__item picture-link" placeholder="Ссылка на картинку" required>
+        <input type="text" name="place-name" class="popup__input place-name" placeholder="Название" required>
+        <input type="url" name="picture-link" class="popup__input picture-link" placeholder="Ссылка на картинку" required>
         <button type="submit" class="popup__button">Создать</button>
-        <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
+        <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_add-card"></button>
       </form>
     </div>
-    <div class="popup view-pic">
+    <div class="popup popup_type_view-pic">
       <div class="popup__container">
         <figure class="popup__pic-wrap">
-          <img src="" class="popup__pic">
+          <img src="#" class="popup__pic">
           <figcaption class="popup__pic-caption"></figcaption>
         </figure>
-        <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
+        <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_view-pic"></button>
       </div>
     </div>
     <template id="cardItemTemplate">
       <li class="cards__item">
-        <img class="cards__image" src="">
+        <img class="cards__image" src="#">
         <button type="button" aria-label="Удалить" class="cards__delete-btn"></button>
         <div class="cards__rating">
           <h2 class="cards__title"></h2>

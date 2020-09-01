@@ -67,129 +67,101 @@ const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 
 const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic');
 
-//Функция, которая открывает нужный попап
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
+//Функция открытия и закрытия попапа
+const openClosePopup = (popup) => {
+  popup.classList.toggle('popup_opened');
 };
 
-//Функция, которая закрывает нужный попап
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-};
-
-//Функция, которая добавляет изменения в данные профиля
+//Обработчик формы редактирования данных профиля
 const userFormSubmitHandler = (evt) => {
   evt.preventDefault();
   profileName.textContent = username.value;
   profileDescription.textContent = activity.value;
-  closePopup(editProfile);
+  openClosePopup(editProfile);
 };
 
-//Функция, которая создает карточку
+//Функция создания карточки
 const createCard = (placeName, pictureLink) => {
   const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.cards__image');
-  const cardTitle = cardElement.querySelector('.cards__title');
-  const likeButton = cardElement.querySelector('.cards__heart');
-  const deleteButton = cardElement.querySelector('.cards__delete-btn');
 
-  //Функция, которая добавляет и удаляет лайк карточке
-  const addOrCancelLike = () => {
-    likeButton.classList.toggle('cards__heart_active');
-  };
-
-  //Функция, которая удаляет карточку
-  const deleteCard = (evt) => {
-    evt.target.closest('.cards__item').remove();
-  };
-
-  //Функция, которая открывает попап с картинкой в полном размере
-  const openViewPic = () => {
-    openPopup(viewPic);
-    popupPic.src = cardImage.src;
-    popupPicCaption.textContent = cardTitle.textContent;
-  };
-
-  cardImage.src = pictureLink;
-  cardTitle.textContent = placeName;
-
-  //Ставим и убираем лайк
-  likeButton.addEventListener('click', addOrCancelLike);
-
-  //Удаляем карточку
-  deleteButton.addEventListener('click', deleteCard);
-
-  //Открываем попап с картинкой в полном размере
-  cardImage.addEventListener('click', openViewPic);
+  cardElement.querySelector('.cards__image').src = pictureLink;
+  cardElement.querySelector('.cards__title').textContent = placeName;
 
   return cardElement;
 };
 
-//Функция, которая добавляет карточку на сайт
+//Функция добавления карточки на сайт
 const addCardToList = (placeName, pictureLink) => {
   cardsList.prepend(createCard(placeName, pictureLink));
 }
 
-//Функция, которая позволяет пользователю добавить карточку на сайт
+//Обработчик формы добавления карточки на сайт
 const placeFormSubmitHandler = (evt) => {
   evt.preventDefault();
   addCardToList(placeName.value, pictureLink.value);
-  closePopup(addCard);
-  placeName.value = '';
-  pictureLink.value = '';
+  openClosePopup(addCard);
+  placeForm.reset();
 };
 
-//Функция, которая открывает попап для редактирования данных профиля
+//Обработчик кнопки открытия формы для редактирования данных профиля
 const openEditProfile = () => {
   if (!editProfile.classList.contains('popup_opened')) {
     username.value = profileName.textContent;
     activity.value = profileDescription.textContent;
   }
-  openPopup(editProfile);
+  openClosePopup(editProfile);
 };
 
-//Функция, которая закрывает попап для редактирования данных профиля
+//Обработчик кнопки закрытия формы для редактирования данных профиля
 const closeEditProfile = () => {
-  closePopup(editProfile);
+  openClosePopup(editProfile);
 };
 
-//Функция, которая открывает попап для добавления карточки на сайт
-const openAddCard = () => {
-  openPopup(addCard);
+//Обработчик кнопок открытия и закрытия формы для добавления карточки на сайт
+const openCloseAddCard = () => {
+  openClosePopup(addCard);
 };
 
-//Функция, которая закрывает попал для добавления карточки на сайт
-const closeAddCard = () => {
-  closePopup(addCard);
-};
-
-//Функция, которая закрывает попап с картинкой в полном размере
+//Обработчик кнопки закрытия попапа с картинкой
 const closeViewPic = () => {
-  closePopup(viewPic);
+  openClosePopup(viewPic);
 };
 
-//Открываем попап для редактирования данных профиля
-editProfileOpenButton.addEventListener('click', openEditProfile);
+//Обработчик событий по добавлению и удалению лайка, удалению карточки и открытию попапа с картинкой
+const cardListHandler = (evt) => {
+  if (evt.target.classList.contains('cards__heart')) {
+    evt.target.classList.toggle('cards__heart_active');
+  } else if (evt.target.classList.contains('cards__delete-btn')) {
+      evt.target.closest('.cards__item').remove();
+    } else if (evt.target.classList.contains('cards__image')) {
+        const card = evt.target.closest('.cards__item');
+        const cardTitle = card.querySelector('.cards__title');
 
-//Закрываем попап для редактирования данных профиля
-editProfileCloseButton.addEventListener('click', closeEditProfile);
+        popupPic.src = evt.target.src;
+        popupPicCaption.textContent = cardTitle.textContent;
 
-//Редактируем данные профиля
-userForm.addEventListener('submit', userFormSubmitHandler);
+        openClosePopup(viewPic);
+      }
+};
 
-//Открываем попап для добавления карточки на сайт
-addCardOpenButton.addEventListener('click', openAddCard);
-
-//Закрываем попап для добавления карточки на сайт
-addCardCloseButton.addEventListener('click', closeAddCard);
-
-//Добавляем карточки из заданного массива
+//Добавить на сайт карточки из заданного массива
 initialCards.forEach((item) => {
   addCardToList(item.name, item.link);
 });
 
-//Добавляем свои карточки
+//Добавить слушатели на кнопки и формы
+editProfileOpenButton.addEventListener('click', openEditProfile);
+
+editProfileCloseButton.addEventListener('click', closeEditProfile);
+
+userForm.addEventListener('submit', userFormSubmitHandler);
+
+addCardOpenButton.addEventListener('click', openCloseAddCard);
+
+addCardCloseButton.addEventListener('click', openCloseAddCard);
+
 placeForm.addEventListener('submit', placeFormSubmitHandler);
 
-//Закрываем попап с картинкой в полном размере
 viewPicCloseButton.addEventListener('click', closeViewPic);
+
+cardsList.addEventListener('click', cardListHandler);

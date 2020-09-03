@@ -6,24 +6,23 @@
           box-sizing: border-box;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   background: transparent;
-  margin-bottom: 17px;
+  margin-bottom: 5px;
   font-family: inherit;
   font-weight: normal;
   font-size: 14px;
   line-height: 1.21;
   color: #000000;
-  padding: 11px 0;
+  padding-bottom: 11px;
 }
 
 .popup__input:focus {
-  border: 2px solid gray;
-  border-radius: 4px;
+  outline: 1px solid gray;
 }
 
 @media (max-width: 492px) {
   .popup__input {
-    margin-bottom: 11px;
-    padding: 9px 0;
+    margin-bottom: 2px;
+    padding-bottom: 8px;
     font-size: 12px;
     line-height: 1.25;
   }

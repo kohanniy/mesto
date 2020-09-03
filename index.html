@@ -31,20 +31,24 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     <div class="popup popup_type_edit-profile">
-      <form name="about-user" method="post" class="popup__form user-form">
+      <form name="user" method="post" class="popup__form user-form" novalidate>
         <h3 class="popup__heading">Редактировать профиль</h3>
-        <input type="text" name="username" class="popup__input username" placeholder="Валентин Петров" required>
-        <input type="text" name="activity" class="popup__input activity" placeholder="Род занятий. Например, программист" required>
+        <input id="username-input" type="text" name="username" class="popup__input username" placeholder="Валентин Петров" minlength="2" maxlength="40" required>
+        <span id="username-input-error" class="popup__input-error"></span>
+        <input id="activity-input" type="text" name="activity" class="popup__input activity" placeholder="Род занятий. Например, программист" minlength="2" maxlength="200" required>
+        <span id="activity-input-error" class="popup__input-error"></span>
         <button type="submit" class="popup__button">Сохранить</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_edit-profile"></button>
       </form>
     </div>
     <div class="popup popup_type_add-card">
-      <form name="place" method="post" class="popup__form place-form">
+      <form name="place" method="post" class="popup__form place-form" novalidate>
         <h3 class="popup__heading">Новое место</h3>
-        <input type="text" name="place-name" class="popup__input place-name" placeholder="Название" required>
-        <input type="url" name="picture-link" class="popup__input picture-link" placeholder="Ссылка на картинку" required>
-        <button type="submit" class="popup__button">Создать</button>
+        <input id="place-name-input" type="text" name="placeName" class="popup__input place-name" placeholder="Название" minlength="1" maxlength="30" required>
+        <span id="place-name-input-error" class="popup__input-error"></span>
+        <input id="picture-link-input" type="url" name="pictureLink" class="popup__input picture-link" placeholder="Ссылка на картинку" required>
+        <span id="picture-link-input-error" class="popup__input-error"></span>
+        <button type="submit" class="popup__button popup__button_disabled" disabled>Создать</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_add-card"></button>
       </form>
     </div>

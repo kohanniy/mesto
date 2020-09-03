@@ -67,17 +67,38 @@ const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 
 const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic');
 
-//Функция открытия и закрытия попапа
-const openClosePopup = (popup) => {
-  popup.classList.toggle('popup_opened');
+const popups = document.querySelectorAll('.popup');
+
+
+//Обработчик для закрытия попапа по клику на Esc
+const closePopupByEscHandler = (evt) => {
+  if (evt.key === 'Escape') {
+    popups.forEach((popup) => {
+      closePopup(popup);
+    });
+  }
+};
+
+//Функция открытия попапа
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.body.addEventListener('keydown', closePopupByEscHandler);
+};
+
+//Функция закрытия попапа
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.body.removeEventListener('keydown', closePopupByEscHandler);
 };
 
 //Обработчик формы редактирования данных профиля
 const userFormSubmitHandler = (evt) => {
   evt.preventDefault();
+
   profileName.textContent = username.value;
   profileDescription.textContent = activity.value;
-  openClosePopup(editProfile);
+
+  closePopup(editProfile);
 };
 
 //Функция создания карточки
@@ -98,33 +119,42 @@ const addCardToList = (placeName, pictureLink) => {
 //Обработчик формы добавления карточки на сайт
 const placeFormSubmitHandler = (evt) => {
   evt.preventDefault();
+
   addCardToList(placeName.value, pictureLink.value);
-  openClosePopup(addCard);
+
+  closePopup(addCard);
+
   placeForm.reset();
 };
 
 //Обработчик кнопки открытия формы для редактирования данных профиля
-const openEditProfile = () => {
+const openEditProfileHandler = () => {
   if (!editProfile.classList.contains('popup_opened')) {
     username.value = profileName.textContent;
     activity.value = profileDescription.textContent;
   }
-  openClosePopup(editProfile);
+  openPopup(editProfile);
 };
 
 //Обработчик кнопки закрытия формы для редактирования данных профиля
-const closeEditProfile = () => {
-  openClosePopup(editProfile);
+const closeEditProfileHandler = () => {
+  closePopup(editProfile);
 };
 
-//Обработчик кнопок открытия и закрытия формы для добавления карточки на сайт
-const openCloseAddCard = () => {
-  openClosePopup(addCard);
+//Обработчик кнопки открытия формы для добавления карточки на сайт
+const openAddCardHandler = () => {
+  openPopup(addCard);
+};
+
+//Обработчик кнопки закрытия формы для добавления карточки на сайт
+const сloseAddCardHandler = () => {
+  closePopup(addCard);
+  placeForm.reset();
 };
 
 //Обработчик кнопки закрытия попапа с картинкой
-const closeViewPic = () => {
-  openClosePopup(viewPic);
+const closeViewPicHandler = () => {
+  closePopup(viewPic);
 };
 
 //Обработчик событий по добавлению и удалению лайка, удалению карточки и открытию попапа с картинкой
@@ -140,7 +170,7 @@ const cardListHandler = (evt) => {
         popupPic.src = evt.target.src;
         popupPicCaption.textContent = cardTitle.textContent;
 
-        openClosePopup(viewPic);
+        openPopup(viewPic);
       }
 };
 
@@ -150,18 +180,44 @@ initialCards.forEach((item) => {
 });
 
 //Добавить слушатели на кнопки и формы
-editProfileOpenButton.addEventListener('click', openEditProfile);
+editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
-editProfileCloseButton.addEventListener('click', closeEditProfile);
+editProfileCloseButton.addEventListener('click', closeEditProfileHandler);
 
 userForm.addEventListener('submit', userFormSubmitHandler);
 
-addCardOpenButton.addEventListener('click', openCloseAddCard);
+addCardOpenButton.addEventListener('click', openAddCardHandler);
 
-addCardCloseButton.addEventListener('click', openCloseAddCard);
+addCardCloseButton.addEventListener('click', сloseAddCardHandler);
 
 placeForm.addEventListener('submit', placeFormSubmitHandler);
 
-viewPicCloseButton.addEventListener('click', closeViewPic);
+viewPicCloseButton.addEventListener('click', closeViewPicHandler);
 
 cardsList.addEventListener('click', cardListHandler);
+
+//Добавляем слушатель каждому попапу, чтобы закрывались по клику на оверлей
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === popup) {
+      closePopup(popup);
+    }
+  });
+});
+
+
+
+
+// popups.forEach((popup) => {
+//   popup.addEventListener('click', (evt) => {
+//     if (evt.target === popup) {
+//       closePopup(popup);
+//     }
+//   });
+// });
+
+
+
+
+
+

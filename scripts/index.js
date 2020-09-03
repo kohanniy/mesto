@@ -69,13 +69,13 @@ const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic
 
 const popups = document.querySelectorAll('.popup');
 
-
 //Обработчик для закрытия попапа по клику на Esc
 const closePopupByEscHandler = (evt) => {
+  const activePopup = Array.from(popups).find((popup) => {
+    return popup.classList.contains('popup_opened');
+  });
+
   if (evt.key === 'Escape') {
-    const activePopup = Array.from(popups).find((popup) => {
-      return popup.classList.contains('popup_opened');
-    });
     closePopup(activePopup);
   }
 };
@@ -105,10 +105,31 @@ const userFormSubmitHandler = (evt) => {
 //Функция создания карточки
 const createCard = (placeName, pictureLink) => {
   const cardElement = cardTemplate.cloneNode(true);
+  const cardImage = cardElement.querySelector('.cards__image');
+  const cardTitle = cardElement.querySelector('.cards__title');
+  const likeButton = cardElement.querySelector('.cards__heart');
+  const deleteButton = cardElement.querySelector('.cards__delete-btn');
 
-  cardElement.querySelector('.cards__image').src = pictureLink;
-  cardElement.querySelector('.cards__image').alt = placeName
-  cardElement.querySelector('.cards__title').textContent = placeName;
+  cardImage.src = pictureLink;
+  cardImage.alt = placeName
+  cardTitle.textContent = placeName;
+
+  //Обработчик событий по добавлению и удалению лайка, удалению карточки и открытию попапа с картинкой
+  const cardsListHandler = (evt) => {
+    if (evt.target === likeButton) {
+      likeButton.classList.toggle('cards__heart_active');
+    } else if (evt.target === deleteButton) {
+        deleteButton.closest('.cards__item').remove();
+      } else if (evt.target === cardImage) {
+          openPopup(viewPic);
+          popupPic.src = cardImage.src;
+          popupPic.alt = cardTitle.textContent;
+          popupPicCaption.textContent = cardTitle.textContent;
+        }
+  };
+
+  //Делегируем события на родительский элемент
+  cardsList.addEventListener('click', cardsListHandler);
 
   return cardElement;
 };
@@ -129,34 +150,6 @@ const placeFormSubmitHandler = (evt) => {
   placeForm.reset();
 };
 
-
-
-
-
-
-
-
-
-
-
-//Обработчик событий по добавлению и удалению лайка, удалению карточки и открытию попапа с картинкой
-const cardListHandler = (evt) => {
-  if (evt.target.classList.contains('cards__heart')) {
-    evt.target.classList.toggle('cards__heart_active');
-  } else if (evt.target.classList.contains('cards__delete-btn')) {
-      evt.target.closest('.cards__item').remove();
-    } else if (evt.target.classList.contains('cards__image')) {
-        const card = evt.target.closest('.cards__item');
-        const cardTitle = card.querySelector('.cards__title');
-
-        popupPic.src = evt.target.src;
-        popupPic.alt = cardTitle.textContent;
-        popupPicCaption.textContent = cardTitle.textContent;
-
-        openPopup(viewPic);
-      }
-};
-
 //Добавить на сайт карточки из заданного массива
 initialCards.forEach((item) => {
   addCardToList(item.name, item.link);
@@ -175,8 +168,6 @@ editProfileCloseButton.addEventListener('click', () => {
   closePopup(editProfile);
 });
 
-userForm.addEventListener('submit', userFormSubmitHandler);
-
 addCardOpenButton.addEventListener('click', () => {
   openPopup(addCard);
 });
@@ -186,13 +177,13 @@ addCardCloseButton.addEventListener('click', ()=> {
   placeForm.reset();
 });
 
-placeForm.addEventListener('submit', placeFormSubmitHandler);
-
 viewPicCloseButton.addEventListener('click', () => {
   closePopup(viewPic);
 });
 
-cardsList.addEventListener('click', cardListHandler);
+placeForm.addEventListener('submit', placeFormSubmitHandler);
+
+userForm.addEventListener('submit', userFormSubmitHandler);
 
 //Добавляем слушатель каждому попапу, чтобы закрывались по клику на оверлей
 popups.forEach((popup) => {
@@ -202,3 +193,9 @@ popups.forEach((popup) => {
     }
   });
 });
+
+
+
+
+
+

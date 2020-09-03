@@ -73,9 +73,10 @@ const popups = document.querySelectorAll('.popup');
 //Обработчик для закрытия попапа по клику на Esc
 const closePopupByEscHandler = (evt) => {
   if (evt.key === 'Escape') {
-    popups.forEach((popup) => {
-      closePopup(popup);
+    const activePopup = Array.from(popups).find((popup) => {
+      return popup.classList.contains('popup_opened');
     });
+    closePopup(activePopup);
   }
 };
 
@@ -204,20 +205,3 @@ popups.forEach((popup) => {
     }
   });
 });
-
-
-
-
-// popups.forEach((popup) => {
-//   popup.addEventListener('click', (evt) => {
-//     if (evt.target === popup) {
-//       closePopup(popup);
-//     }
-//   });
-// });
-
-
-
-
-
-

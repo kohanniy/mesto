@@ -107,6 +107,7 @@ const createCard = (placeName, pictureLink) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.cards__image').src = pictureLink;
+  cardElement.querySelector('.cards__image').alt = placeName
   cardElement.querySelector('.cards__title').textContent = placeName;
 
   return cardElement;
@@ -169,6 +170,7 @@ const cardListHandler = (evt) => {
         const cardTitle = card.querySelector('.cards__title');
 
         popupPic.src = evt.target.src;
+        popupPic.alt = cardTitle.textContent;
         popupPicCaption.textContent = cardTitle.textContent;
 
         openPopup(viewPic);

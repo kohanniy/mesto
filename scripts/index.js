@@ -129,35 +129,15 @@ const placeFormSubmitHandler = (evt) => {
   placeForm.reset();
 };
 
-//Обработчик кнопки открытия формы для редактирования данных профиля
-const openEditProfileHandler = () => {
-  if (!editProfile.classList.contains('popup_opened')) {
-    username.value = profileName.textContent;
-    activity.value = profileDescription.textContent;
-  }
-  openPopup(editProfile);
-};
 
-//Обработчик кнопки закрытия формы для редактирования данных профиля
-const closeEditProfileHandler = () => {
-  closePopup(editProfile);
-};
 
-//Обработчик кнопки открытия формы для добавления карточки на сайт
-const openAddCardHandler = () => {
-  openPopup(addCard);
-};
 
-//Обработчик кнопки закрытия формы для добавления карточки на сайт
-const сloseAddCardHandler = () => {
-  closePopup(addCard);
-  placeForm.reset();
-};
 
-//Обработчик кнопки закрытия попапа с картинкой
-const closeViewPicHandler = () => {
-  closePopup(viewPic);
-};
+
+
+
+
+
 
 //Обработчик событий по добавлению и удалению лайка, удалению карточки и открытию попапа с картинкой
 const cardListHandler = (evt) => {
@@ -183,19 +163,34 @@ initialCards.forEach((item) => {
 });
 
 //Добавить слушатели на кнопки и формы
-editProfileOpenButton.addEventListener('click', openEditProfileHandler);
+editProfileOpenButton.addEventListener('click', () => {
+  if (!editProfile.classList.contains('popup_opened')) {
+    username.value = profileName.textContent;
+    activity.value = profileDescription.textContent;
+  }
+  openPopup(editProfile);
+});
 
-editProfileCloseButton.addEventListener('click', closeEditProfileHandler);
+editProfileCloseButton.addEventListener('click', () => {
+  closePopup(editProfile);
+});
 
 userForm.addEventListener('submit', userFormSubmitHandler);
 
-addCardOpenButton.addEventListener('click', openAddCardHandler);
+addCardOpenButton.addEventListener('click', () => {
+  openPopup(addCard);
+});
 
-addCardCloseButton.addEventListener('click', сloseAddCardHandler);
+addCardCloseButton.addEventListener('click', ()=> {
+  closePopup(addCard);
+  placeForm.reset();
+});
 
 placeForm.addEventListener('submit', placeFormSubmitHandler);
 
-viewPicCloseButton.addEventListener('click', closeViewPicHandler);
+viewPicCloseButton.addEventListener('click', () => {
+  closePopup(viewPic);
+});
 
 cardsList.addEventListener('click', cardListHandler);
 

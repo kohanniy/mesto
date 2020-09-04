@@ -59,6 +59,8 @@ const placeName = placeForm.querySelector('.place-name');
 
 const pictureLink = placeForm.querySelector('.picture-link');
 
+const placeFormSubmitButton = placeForm.querySelector('.popup__button');
+
 const viewPic = document.querySelector('.popup_type_view-pic');
 
 const popupPic = viewPic.querySelector('.popup__pic');
@@ -68,6 +70,26 @@ const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic');
 
 const popups = document.querySelectorAll('.popup');
+
+const popupInputs = document.querySelectorAll('.popup__input');
+
+const popupInputErrors = document.querySelectorAll('.popup__input-error');
+
+const popupSubmitButtons = document.querySelectorAll('.popup__button');
+
+// popupInputErrors.forEach((popupInputError) => {
+//   popupInputError.textContent = '';
+// });
+
+// popupInputs.forEach((popupInput) => {
+//   popupInput.classList.remove('popup__input_type_error')
+// });
+
+// popupSubmitButtons.forEach((popupSubmitButton) => {
+//   popupSubmitButton.classList.add('popup__button_disabled');
+//   popupSubmitButton.setAttribute('disabled', true);
+// });
+
 
 //Обработчик для закрытия попапа по клику на Esc
 const closePopupByEscHandler = (evt) => {
@@ -93,9 +115,7 @@ const closePopup = (popup) => {
 };
 
 //Обработчик формы редактирования данных профиля
-const userFormSubmitHandler = (evt) => {
-  evt.preventDefault();
-
+const userFormSubmitHandler = () => {
   profileName.textContent = username.value;
   profileDescription.textContent = activity.value;
 
@@ -140,14 +160,13 @@ const addCardToList = (placeName, pictureLink) => {
 }
 
 //Обработчик формы добавления карточки на сайт
-const placeFormSubmitHandler = (evt) => {
-  evt.preventDefault();
+const placeFormSubmitHandler = () => {
+  placeFormSubmitButton.classList.add('popup__button_disabled');
+  placeFormSubmitButton.setAttribute('disabled', true);
 
   addCardToList(placeName.value, pictureLink.value);
 
   closePopup(addCard);
-
-  placeForm.reset();
 };
 
 //Добавить на сайт карточки из заданного массива

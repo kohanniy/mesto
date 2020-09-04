@@ -35,13 +35,15 @@ const profileName = profile.querySelector('.profile__name');
 
 const profileDescription = profile.querySelector('.profile__description');
 
-const username = editProfile.querySelector('.username');
+const userForm = editProfile.querySelector('.user-form');
 
-const activity = editProfile.querySelector('.activity');
+const username = userForm.querySelector('.username');
+
+const activity = userForm.querySelector('.activity');
 
 const editProfileCloseButton = editProfile.querySelector('.popup__close-btn_for_edit-profile');
 
-const userForm = editProfile.querySelector('.user-form');
+const userFormSubmitButton = userForm.querySelector('.popup__button');
 
 const addCard = document.querySelector('.popup_type_add-card');
 
@@ -71,26 +73,6 @@ const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic
 
 const popups = document.querySelectorAll('.popup');
 
-const popupInputs = document.querySelectorAll('.popup__input');
-
-const popupInputErrors = document.querySelectorAll('.popup__input-error');
-
-const popupSubmitButtons = document.querySelectorAll('.popup__button');
-
-// popupInputErrors.forEach((popupInputError) => {
-//   popupInputError.textContent = '';
-// });
-
-// popupInputs.forEach((popupInput) => {
-//   popupInput.classList.remove('popup__input_type_error')
-// });
-
-// popupSubmitButtons.forEach((popupSubmitButton) => {
-//   popupSubmitButton.classList.add('popup__button_disabled');
-//   popupSubmitButton.setAttribute('disabled', true);
-// });
-
-
 //Обработчик для закрытия попапа по клику на Esc
 const closePopupByEscHandler = (evt) => {
   const activePopup = Array.from(popups).find((popup) => {
@@ -112,6 +94,24 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.body.removeEventListener('keydown', closePopupByEscHandler);
+};
+
+//Функция очистки ошибок полей ввода
+const clearInputErrors = (popup) => {
+  const popupInputs = popup.querySelectorAll('.popup__input');
+  const popupInputErrors = popup.querySelectorAll('.popup__input-error');
+
+  popupInputs.forEach((popupInput) => {
+    if (popupInput.classList.contains('popup__input_type_error')) {
+      popupInput.classList.remove('popup__input_type_error');
+    }
+  });
+
+  popupInputErrors.forEach((popupInputError) => {
+    if (popupInputError.textContent != '') {
+      popupInputError.textContent = ''
+    }
+  });
 };
 
 //Обработчик формы редактирования данных профиля
@@ -161,9 +161,6 @@ const addCardToList = (placeName, pictureLink) => {
 
 //Обработчик формы добавления карточки на сайт
 const placeFormSubmitHandler = () => {
-  placeFormSubmitButton.classList.add('popup__button_disabled');
-  placeFormSubmitButton.setAttribute('disabled', true);
-
   addCardToList(placeName.value, pictureLink.value);
 
   closePopup(addCard);
@@ -179,7 +176,11 @@ editProfileOpenButton.addEventListener('click', () => {
   if (!editProfile.classList.contains('popup_opened')) {
     username.value = profileName.textContent;
     activity.value = profileDescription.textContent;
+    userFormSubmitButton.classList.remove('popup__button_disabled');
+    userFormSubmitButton.removeAttribute('disabled', true);
+    clearInputErrors(editProfile);
   }
+
   openPopup(editProfile);
 });
 
@@ -188,12 +189,19 @@ editProfileCloseButton.addEventListener('click', () => {
 });
 
 addCardOpenButton.addEventListener('click', () => {
+  if (!editProfile.classList.contains('popup_opened')) {
+    placeName.value = '';
+    pictureLink.value = '';
+    placeFormSubmitButton.classList.add('popup__button_disabled');
+    placeFormSubmitButton.setAttribute('disabled', true);
+    clearInputErrors(addCard);
+  }
+
   openPopup(addCard);
 });
 
 addCardCloseButton.addEventListener('click', ()=> {
   closePopup(addCard);
-  placeForm.reset();
 });
 
 viewPicCloseButton.addEventListener('click', () => {
@@ -212,9 +220,3 @@ popups.forEach((popup) => {
     }
   });
 });
-
-
-
-
-
-

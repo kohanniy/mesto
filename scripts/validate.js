@@ -28,14 +28,24 @@ const isValid = (formElement, inputElement, formObj) => {
     }
 };
 
+//Задаем состояние включенной кнопки
+const includedSubmitButton = (buttonElement, formObj) => {
+  buttonElement.classList.remove(formObj.inactiveButtonClass);
+  buttonElement.removeAttribute('disabled', true);
+}
+
+//Задаем состояние выключенной кнопки
+const disabledSubmitButton = (buttonElement, formObj) => {
+  buttonElement.classList.add(formObj.inactiveButtonClass);
+  buttonElement.setAttribute('disabled', true);
+}
+
 //Меняем состояние кнопки в зависимости от валидности полей
 const toggleButtonState = (inputList, buttonElement, formObj) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(formObj.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    disabledSubmitButton (buttonElement, formObj);
   } else {
-      buttonElement.classList.remove(formObj.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled', true);
+     includedSubmitButton(buttonElement, formObj);
     }
 };
 
@@ -65,11 +75,17 @@ const enableValidation = (formObj) => {
   });
 };
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error'
-});
+//Функция очистки ошибок полей ввода
+const clearErrors = (formElement, formObj) => {
+  const inputList = formElement.querySelectorAll(formObj.inputSelector);
+
+  inputList.forEach((inputElement) => {
+    if (inputElement.classList.contains(formObj.inputErrorClass)) {
+      const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+      inputElement.classList.remove(formObj.inputErrorClass);
+      errorElement.textContent = '';
+    }
+  });
+};
+
+enableValidation(formObj);

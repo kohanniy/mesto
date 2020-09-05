@@ -108,7 +108,7 @@ const clearInputErrors = (popup) => {
   });
 
   popupInputErrors.forEach((popupInputError) => {
-    if (popupInputError.textContent != '') {
+    if (popupInputError.textContent !== '') {
       popupInputError.textContent = ''
     }
   });
@@ -134,22 +134,23 @@ const createCard = (placeName, pictureLink) => {
   cardImage.alt = placeName
   cardTitle.textContent = placeName;
 
-  //Обработчик событий по добавлению и удалению лайка, удалению карточки и открытию попапа с картинкой
-  const cardsListHandler = (evt) => {
-    if (evt.target === likeButton) {
-      likeButton.classList.toggle('cards__heart_active');
-    } else if (evt.target === deleteButton) {
-        deleteButton.closest('.cards__item').remove();
-      } else if (evt.target === cardImage) {
-          openPopup(viewPic);
-          popupPic.src = cardImage.src;
-          popupPic.alt = cardTitle.textContent;
-          popupPicCaption.textContent = cardTitle.textContent;
-        }
-  };
+  //Открываем попап с картинкой
+  cardImage.addEventListener('click', () => {
+    openPopup(viewPic);
+    popupPic.src = cardImage.src;
+    popupPic.alt = cardTitle.textContent;
+    popupPicCaption.textContent = cardTitle.textContent;
+  });
 
-  //Делегируем события на родительский элемент
-  cardsList.addEventListener('click', cardsListHandler);
+  //Ставим и убираем лайк
+  likeButton.addEventListener('click', () => {
+    likeButton.classList.toggle('cards__heart_active');
+  });
+
+  //Удалем карточку
+  deleteButton.addEventListener('click', () => {
+    deleteButton.closest('.cards__item').remove();
+  });
 
   return cardElement;
 };

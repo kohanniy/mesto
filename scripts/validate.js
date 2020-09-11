@@ -1,3 +1,5 @@
+import {formObj} from './constants.js';
+
 //Находим невалидные поля
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
@@ -35,7 +37,7 @@ const includedSubmitButton = (buttonElement, formObj) => {
 }
 
 //Задаем состояние выключенной кнопки
-const disabledSubmitButton = (buttonElement, formObj) => {
+export const disabledSubmitButton = (buttonElement, formObj) => {
   buttonElement.classList.add(formObj.inactiveButtonClass);
   buttonElement.setAttribute('disabled', true);
 }
@@ -76,7 +78,7 @@ const enableValidation = (formObj) => {
 };
 
 //Функция очистки ошибок полей ввода
-const clearErrors = (formElement, formObj) => {
+export const clearErrors = (formElement, formObj) => {
   const inputList = formElement.querySelectorAll(formObj.inputSelector);
 
   inputList.forEach((inputElement) => {

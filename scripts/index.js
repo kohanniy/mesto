@@ -2,7 +2,7 @@ import {Card} from './Card.js';
 
 import {initialCards, formObj} from './constants.js';
 
-import {disabledSubmitButton, clearErrors} from './validate.js';
+import {FormValidator} from './FormValidator.js';
 
 const profile = document.querySelector('.profile');
 
@@ -22,8 +22,6 @@ const activity = userForm.querySelector('.activity');
 
 const editProfileCloseButton = editProfile.querySelector('.popup__close-btn_for_edit-profile');
 
-const userFormSubmitButton = userForm.querySelector('.popup__button');
-
 const addCard = document.querySelector('.popup_type_add-card');
 
 const addCardOpenButton = profile.querySelector('.profile__add-btn');
@@ -38,8 +36,6 @@ const placeName = placeForm.querySelector('.place-name');
 
 const pictureLink = placeForm.querySelector('.picture-link');
 
-const placeFormSubmitButton = placeForm.querySelector('.popup__button');
-
 export const viewPic = document.querySelector('.popup_type_view-pic');
 
 export const popupPic = viewPic.querySelector('.popup__pic');
@@ -49,6 +45,10 @@ export const popupPicCaption = viewPic.querySelector('.popup__pic-caption');
 const viewPicCloseButton = viewPic.querySelector('.popup__close-btn_for_view-pic');
 
 const popups = document.querySelectorAll('.popup');
+
+const userFormValidator = new FormValidator(formObj, userForm);
+
+const placeFormValidator = new FormValidator(formObj, placeForm);
 
 //Добавляем на сайт карточки из заданного массива
 initialCards.forEach((item) => {
@@ -87,9 +87,10 @@ const userFormSubmitHandler = () => {
   profileName.textContent = username.value;
   profileDescription.textContent = activity.value;
 
-  closePopup(editProfile);
-};
 
+  closePopup(editProfile);
+
+};
 
 //Обработчик: даем пользователю возможность добавлять карточки на сайт
 const placeFormSubmitHandler = () => {
@@ -113,10 +114,11 @@ editProfileOpenButton.addEventListener('click', () => {
   if (!editProfile.classList.contains('popup_opened')) {
     username.value = profileName.textContent;
     activity.value = profileDescription.textContent;
-    includedSubmitButton(userFormSubmitButton, formObj);
-    clearErrors(userForm, formObj);
+    userFormValidator.hideErrors();
+    userFormValidator.enableSubmitButton();
   }
   openPopup(editProfile);
+  userFormValidator.enableValidation();
 });
 
 editProfileCloseButton.addEventListener('click', () => {
@@ -124,14 +126,15 @@ editProfileCloseButton.addEventListener('click', () => {
 });
 
 addCardOpenButton.addEventListener('click', () => {
-  if (!editProfile.classList.contains('popup_opened')) {
+  if (!addCard.classList.contains('popup_opened')) {
     placeName.value = '';
     pictureLink.value = '';
-    disabledSubmitButton(placeFormSubmitButton, formObj);
-    clearErrors(placeForm, formObj);
+    placeFormValidator.hideErrors();
+    placeFormValidator.disableSubmitButton();
   }
 
   openPopup(addCard);
+  placeFormValidator.enableValidation();
 });
 
 addCardCloseButton.addEventListener('click', ()=> {

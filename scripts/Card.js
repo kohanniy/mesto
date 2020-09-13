@@ -9,61 +9,62 @@ export class Card {
 
   //получаем шаблон карточки
   _getTemplate() {
-    const cardElement = document
+    const card = document
     .querySelector(this._cardSelector)
     .content
     .querySelector('.cards__item').cloneNode(true);
 
-    return cardElement;
+    return card;
   }
 
   //создаем карточку
   generateCard() {
-    this._element = this._getTemplate();
+    this._card = this._getTemplate();
     this._setEventListeners();
 
-    this._element.querySelector('.cards__image').src = this._pictureLink;
-    this._element.querySelector('.cards__image').alt = this._placeName;
-    this._element.querySelector('.cards__title').textContent = this._placeName;
+    this._card.querySelector('.cards__image').src = this._pictureLink;
+    this._card.querySelector('.cards__image').alt = this._placeName;
+    this._card.querySelector('.cards__title').textContent = this._placeName;
 
-    return this._element;
+    return this._card;
   }
 
   //подключаем обработчики к...
   _setEventListeners() {
 
     //кнопке удаления карточки
-    this._element.querySelector('.cards__delete-btn').addEventListener('click', () => {
+    this._card.querySelector('.cards__delete-btn').addEventListener('click', () => {
       this._handleDeleteButtonClick();
     });
 
     //сердечку
-    this._element.querySelector('.cards__heart').addEventListener('click', () => {
+    this._card.querySelector('.cards__heart').addEventListener('click', () => {
       this._handleLikeButtonClick();
     });
 
     //картинке
-    this._element.querySelector('.cards__image').addEventListener('click', () => {
+    this._card.querySelector('.cards__image').addEventListener('click', () => {
       this._handleCardImageClick();
     });
   }
 
    //обработчик: удаляем карточку
   _handleDeleteButtonClick() {
-    this._element.remove();
+    this._card.remove();
+    this._card = null;
   };
 
 
   //обработчик: ставим и убираем лайк
   _handleLikeButtonClick() {
-    this._element.querySelector('.cards__heart').classList.toggle('cards__heart_active');
+    this._card.querySelector('.cards__heart').classList.toggle('cards__heart_active');
   }
 
   //обработчик: открываем попап с картинкой карточки
   _handleCardImageClick() {
     openPopup(viewPic);
-    popupPic.src = this._element.querySelector('.cards__image').src;
-    popupPic.alt = this._element.querySelector('.cards__image').alt;
-    popupPicCaption.textContent = this._element.querySelector('.cards__image').alt;
+    popupPic.src = this._card.querySelector('.cards__image').src;
+    popupPic.alt = this._card.querySelector('.cards__image').alt;
+    popupPicCaption.textContent = this._card.querySelector('.cards__image').alt;
   }
 }

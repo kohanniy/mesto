@@ -4,11 +4,9 @@ export class FormValidator {
     this._submitButtonSelector = formObj.submitButtonSelector;
     this._inactiveButtonClass = formObj.inactiveButtonClass;
     this._inputErrorClass = formObj.inputErrorClass;
-    this._errorClass = formObj.errorClass;
     this._formElement = formElement;
     this._inputList = Array.from(formElement.querySelectorAll(formObj.inputSelector));
     this._submitButton = formElement.querySelector(formObj.submitButtonSelector);
-    this._errorClass = Array.from(formElement.querySelectorAll(formObj.errorClass));
   }
 
   //показываем или скрываем ошибку в зависимости от валидности полей

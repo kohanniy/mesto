@@ -1,4 +1,4 @@
-import {popupPic, popupPicCaption, viewPic, openPopup} from './index.js';
+import {popupPic, popupPicCaption, viewPicPopup, openPopup} from './index.js';
 
 export class Card {
   constructor(data, cardSelector) {
@@ -48,7 +48,7 @@ export class Card {
     });
   }
 
-   //обработчик: удаляем карточку
+   //обработчик: удаляем и обнуляем карточку
   _handleDeleteButtonClick() {
     this._card.remove();
     this._card = null;
@@ -62,7 +62,7 @@ export class Card {
 
   //обработчик: открываем попап с картинкой карточки
   _handleCardImageClick() {
-    openPopup(viewPic);
+    openPopup(viewPicPopup);
     popupPic.src = this._card.querySelector('.cards__image').src;
     popupPic.alt = this._card.querySelector('.cards__image').alt;
     popupPicCaption.textContent = this._card.querySelector('.cards__image').alt;

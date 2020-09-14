@@ -22,9 +22,12 @@ export class Card {
     this._card = this._getTemplate();
     this._setEventListeners();
 
-    this._card.querySelector('.cards__image').src = this._pictureLink;
-    this._card.querySelector('.cards__image').alt = this._placeName;
-    this._card.querySelector('.cards__title').textContent = this._placeName;
+    const cardImage = this._card.querySelector('.cards__image');
+    const cardTitle = this._card.querySelector('.cards__title');
+
+    cardImage.src = this._pictureLink;
+    cardImage.alt = this._placeName;
+    cardTitle.textContent = this._placeName;
 
     return this._card;
   }
@@ -63,8 +66,8 @@ export class Card {
   //обработчик: открываем попап с картинкой карточки
   _handleCardImageClick() {
     openPopup(viewPicPopup);
-    popupPic.src = this._card.querySelector('.cards__image').src;
-    popupPic.alt = this._card.querySelector('.cards__image').alt;
-    popupPicCaption.textContent = this._card.querySelector('.cards__image').alt;
+    popupPic.src = this._pictureLink;
+    popupPic.alt = this._placeName;
+    popupPicCaption.textContent = this._placeName;
   }
 }

@@ -67,7 +67,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.body.removeEventListener('keydown', closePopupByEscHandler);
   popup.removeEventListener('click', closePopupByOverlayHandler);
-};
+}
 
 //Обработчик: закрываем попап по клику на Esc
 const closePopupByEscHandler = (evt) => {
@@ -96,7 +96,6 @@ buttonOpenEditProfile.addEventListener('click', () => {
     userFormValidator.enableSubmitButton();
   }
 
-  userFormValidator.enableValidation();
   openPopup(editProfilePopup);
 });
 
@@ -109,7 +108,6 @@ buttonOpenAddCard.addEventListener('click', () => {
   }
 
   openPopup(addCardPopup);
-  placeFormValidator.enableValidation();
 });
 
 //Добавляем обработчики на кнопки закрытия попапов
@@ -138,20 +136,27 @@ const placeFormSubmitHandler = () => {
     link: pictureLink.value
   };
 
-  const card = new Card(userData, '#cardItemTemplate');
-  const cardElement = card.generateCard();
-  cardsList.prepend(cardElement);
+  createAndAddCard(userData);
   closePopup(addCardPopup);
 };
+
+//Добавляем на сайт карточки из заданного массива
+initialCards.forEach((item) => {
+  createAndAddCard(item);
+});
+
+function createAndAddCard(data) {
+  const card = new Card(data, '#cardItemTemplate');
+  const cardElement = card.generateCard();
+  cardsList.prepend(cardElement);
+}
 
 //Добавляем формам обработчики
 placeForm.addEventListener('submit', placeFormSubmitHandler);
 
 userForm.addEventListener('submit', userFormSubmitHandler);
 
-//Добавляем на сайт карточки из заданного массива
-initialCards.forEach((item) => {
-  const card = new Card(item, '#cardItemTemplate');
-  const cardElement = card.generateCard();
-  cardsList.prepend(cardElement);
-});
+//Вызываем функцию валидации для форм
+userFormValidator.enableValidation();
+
+placeFormValidator.enableValidation();

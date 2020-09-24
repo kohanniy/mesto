@@ -1,8 +1,8 @@
-import {Card} from './Card.js';
+import Card from '../components/Card.js';
 
-import {initialCards, formObj} from './constants.js';
+import {initialCards, formObj} from '../utils/constants.js';
 
-import {FormValidator} from './FormValidator.js';
+import FormValidator from '../components/FormValidator.js';
 
 //Переменные для профиля
 const profile = document.querySelector('.profile');

@@ -1,6 +1,6 @@
-import {popupPic, popupPicCaption, viewPicPopup, openPopup} from './index.js';
+import {popupPic, popupPicCaption, viewPicPopup, openPopup} from '../pages/index.js';
 
-export class Card {
+export default class Card {
   constructor(data, cardSelector) {
     this._placeName = data.name;
     this._pictureLink = data.link;

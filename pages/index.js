@@ -1,6 +1,7 @@
 import {
   initialCards,
   cardsContainerSelector,
+  popupWithImageSelector,
   formObj
 } from '../utils/constants.js';
 
@@ -10,16 +11,25 @@ import FormValidator from '../components/FormValidator.js';
 
 import Section from '../components/Section.js';
 
+import PopupWithImage from '../components/PopupWithImage.js';
+
+const handleCardClick = (name, link) => {
+  const popupWithImage = new PopupWithImage(popupWithImageSelector);
+  popupWithImage.open(name, link);
+}
+
 const initialCardsList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#cardItemTemplate');
+    const card = new Card(item, '#cardItemTemplate', handleCardClick);
     const cardElement = card.generateCard();
     initialCardsList.addItem(cardElement);
   }
 }, cardsContainerSelector);
 
 initialCardsList.renderItems();
+
+
 
 // //Переменные для профиля
 // const profile = document.querySelector('.profile');

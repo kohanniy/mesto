@@ -35,3 +35,5 @@ export const formObj = {
 };
 
 export const cardsContainerSelector = '.cards__list';
+
+export const popupWithImageSelector = '.popup_type_view-pic';

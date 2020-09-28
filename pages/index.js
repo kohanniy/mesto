@@ -3,6 +3,8 @@ import {
   cardsContainerSelector,
   popupWithImageSelector,
   popupWithProfileFormSelector,
+  profileNameSelector,
+  profileDescriptionSelector,
   formObj
 } from '../utils/constants.js';
 

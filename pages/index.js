@@ -2,6 +2,7 @@ import {
   initialCards,
   cardsContainerSelector,
   popupWithImageSelector,
+  popupWithProfileFormSelector,
   formObj
 } from '../utils/constants.js';
 
@@ -12,6 +13,24 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 
 import PopupWithImage from '../components/PopupWithImage.js';
+
+import PopupWithForm from '../components/PopupWithForm.js';
+
+const handleFormSubmit = () => {
+  console.log('123');
+}
+
+const popupWithProfileForm = new PopupWithForm(popupWithProfileFormSelector, {
+  handleFormSubmit: (formData) => {
+    const userInfo = new UserInfo()
+  }
+});
+
+document.querySelector('.profile__edit-btn').addEventListener('click', () => {
+  popupWithProfileForm.open();
+});
+
+
 
 const handleCardClick = (name, link) => {
   const popupWithImage = new PopupWithImage(popupWithImageSelector);

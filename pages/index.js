@@ -1,8 +1,8 @@
 import {
   initialCards,
   cardsContainerSelector,
-  popupWithImageSelector,
-  popupWithProfileFormSelector,
+  popupShowImageSelector,
+  popupEditProfileSelector,
   profileNameSelector,
   profileDescriptionSelector,
   formObj
@@ -18,26 +18,26 @@ import PopupWithImage from '../components/PopupWithImage.js';
 
 import PopupWithForm from '../components/PopupWithForm.js';
 
-const handleFormSubmit = () => {
-  console.log('123');
+import UserInfo from '../components/UserInfo.js';
+
+const popupShowImage = new PopupWithImage(popupShowImageSelector);
+
+const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector });
+
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, handleProfileFormSubmit);
+
+function handleProfileFormSubmit(userData) {
+  userInfo.setUserInfo(userData);
 }
 
-const popupWithProfileForm = new PopupWithForm(popupWithProfileFormSelector, {
-  handleFormSubmit: (formData) => {
-    const userInfo = new UserInfo()
-  }
-});
-
-document.querySelector('.profile__edit-btn').addEventListener('click', () => {
-  popupWithProfileForm.open();
-});
-
-
-
-const handleCardClick = (name, link) => {
-  const popupWithImage = new PopupWithImage(popupWithImageSelector);
-  popupWithImage.open(name, link);
+function handlePopupEditProfileOpen() {
+  const profileData = userInfo.getUserInfo();
+  popupEditProfile.form.username.value = profileData.username;
+  popupEditProfile.form.activity.value = profileData.activity;
+  popupEditProfile.open();
 }
+
+document.querySelector('.profile__edit-btn').addEventListener('click', handlePopupEditProfileOpen);
 
 const initialCardsList = new Section({
   items: initialCards,
@@ -49,6 +49,14 @@ const initialCardsList = new Section({
 }, cardsContainerSelector);
 
 initialCardsList.renderItems();
+
+function handleCardClick (name, link) {
+  popupShowImage.open(name, link);
+}
+
+const profileFormValidator = new FormValidator(formObj, popupEditProfile.form);
+
+profileFormValidator.enableValidation();
 
 
 

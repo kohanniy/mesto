@@ -63,12 +63,4 @@ export default class Card {
   _handleLikeButtonClick() {
     this._card.querySelector('.cards__heart').classList.toggle('cards__heart_active');
   }
-
-  //обработчик: открываем попап с картинкой карточки
-  // _handleCardImageClick() {
-  //   openPopup(viewPicPopup);
-  //   popupPic.src = this._pictureLink;
-  //   popupPic.alt = this._placeName;
-  //   popupPicCaption.textContent = this._placeName;
-  // }
 }

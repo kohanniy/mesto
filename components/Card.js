@@ -1,10 +1,9 @@
-import {popupPic, popupPicCaption, viewPicPopup, openPopup} from '../pages/index.js';
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._placeName = data.name;
     this._pictureLink = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   //получаем шаблон карточки
@@ -47,7 +46,7 @@ export default class Card {
 
     //картинке
     this._card.querySelector('.cards__image').addEventListener('click', () => {
-      this._handleCardImageClick();
+      this._handleCardClick(this._placeName, this._pictureLink);
     });
   }
 
@@ -57,17 +56,8 @@ export default class Card {
     this._card = null;
   };
 
-
   //обработчик: ставим и убираем лайк
   _handleLikeButtonClick() {
     this._card.querySelector('.cards__heart').classList.toggle('cards__heart_active');
-  }
-
-  //обработчик: открываем попап с картинкой карточки
-  _handleCardImageClick() {
-    openPopup(viewPicPopup);
-    popupPic.src = this._pictureLink;
-    popupPic.alt = this._placeName;
-    popupPicCaption.textContent = this._placeName;
   }
 }

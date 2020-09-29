@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Learning project",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kohanniy/mesto.git"
+  },
+  "author": "Slava Kohanniy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kohanniy/mesto/issues"
+  },
+  "homepage": "https://github.com/kohanniy/mesto#readme",
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}

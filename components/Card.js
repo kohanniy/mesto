@@ -1,5 +1,3 @@
-// import {popupPic, popupPicCaption, viewPicPopup, openPopup} from '../pages/index.js';
-
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._placeName = data.name;
@@ -57,7 +55,6 @@ export default class Card {
     this._card.remove();
     this._card = null;
   };
-
 
   //обработчик: ставим и убираем лайк
   _handleLikeButtonClick() {

@@ -44,4 +44,4 @@ export const profileNameSelector = '.profile__name';
 
 export const profileDescriptionSelector = '.profile__description';
 
-
+export const popupAddCardSelector = '.popup_type_add-card';

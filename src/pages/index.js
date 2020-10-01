@@ -35,30 +35,19 @@ const profileFormValidator = new FormValidator(formObj, popupEditProfile.form);
 
 const cardFormValidator = new FormValidator(formObj, popupAddCard.form);
 
-const initialCardsList = new Section({
+const cardsList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#cardItemTemplate', handleCardClick);
-    const cardElement = card.generateCard();
-    initialCardsList.addItem(cardElement);
+    createAndAddCard(item);
   }
 }, cardsContainerSelector);
 
-//Отрисовываем на странице заданные карточки
-initialCardsList.renderItems();
-
-//Добавляем обработчики кнопкам открытия попапов с формой
-document.querySelector('.profile__edit-btn').addEventListener('click', handlePopupEditProfileOpen);
-document.querySelector('.profile__add-btn').addEventListener('click', handlePopupAddCardOpen);
-
-//Включаем валидацию форм
-profileFormValidator.enableValidation();
-cardFormValidator.enableValidation();
-
-//Добавляем попам обработчики
-popupAddCard.setEventListeners();
-popupEditProfile.setEventListeners();
-popupShowImage.setEventListeners();
+//Создаем и добавляем карточку на страницу
+function createAndAddCard(cardData) {
+  const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
+  const cardElement = card.generateCard();
+  cardsList.addItem(cardElement);
+}
 
 //Колбэк сабмита формы профиля
 function handleProfileFormSubmit(userData) {
@@ -67,11 +56,8 @@ function handleProfileFormSubmit(userData) {
 }
 
 //Колбэк сабмита формы добавления карточки
-function handleCardFormSubmit(userData) {
-  const userCard = new Card(userData, '#cardItemTemplate', handleCardClick);
-  const cardElement = userCard.generateCard();
-  const cardList = document.querySelector(cardsContainerSelector);
-  cardList.prepend(cardElement);
+function handleCardFormSubmit(cardData) {
+  createAndAddCard(cardData);
   popupAddCard.close();
 }
 
@@ -93,6 +79,22 @@ function handlePopupAddCardOpen() {
 }
 
 //Колбэк для класса Card: открывает попап с картинкой
-function handleCardClick (name, link) {
+function handleCardClick(name, link) {
   popupShowImage.open(name, link);
 }
+
+//Отрисовываем на странице заданные карточки
+cardsList.renderItems();
+
+//Добавляем обработчики кнопкам открытия попапов с формой
+document.querySelector('.profile__edit-btn').addEventListener('click', handlePopupEditProfileOpen);
+document.querySelector('.profile__add-btn').addEventListener('click', handlePopupAddCardOpen);
+
+//Включаем валидацию форм
+profileFormValidator.enableValidation();
+cardFormValidator.enableValidation();
+
+//Добавляем попапам обработчики
+popupAddCard.setEventListeners();
+popupEditProfile.setEventListeners();
+popupShowImage.setEventListeners();

@@ -19,14 +19,13 @@ export default class Card {
   //создаем карточку
   generateCard() {
     this._card = this._getTemplate();
+    this._cardImage = this._card.querySelector('.cards__image');
+    this._cardTitle = this._card.querySelector('.cards__title');
     this._setEventListeners();
 
-    const cardImage = this._card.querySelector('.cards__image');
-    const cardTitle = this._card.querySelector('.cards__title');
-
-    cardImage.src = this._pictureLink;
-    cardImage.alt = this._placeName;
-    cardTitle.textContent = this._placeName;
+    this._cardImage.src = this._pictureLink;
+    this._cardImage.alt = this._placeName;
+    this._cardTitle.textContent = this._placeName;
 
     return this._card;
   }
@@ -40,12 +39,12 @@ export default class Card {
     });
 
     //сердечку
-    this._card.querySelector('.cards__heart').addEventListener('click', () => {
-      this._handleLikeButtonClick();
+    this._card.querySelector('.cards__heart').addEventListener('click', (evt) => {
+      this._handleLikeButtonClick(evt);
     });
 
     //картинке
-    this._card.querySelector('.cards__image').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._placeName, this._pictureLink);
     });
   }
@@ -57,7 +56,7 @@ export default class Card {
   };
 
   //обработчик: ставим и убираем лайк
-  _handleLikeButtonClick() {
-    this._card.querySelector('.cards__heart').classList.toggle('cards__heart_active');
+  _handleLikeButtonClick(evt) {
+    evt.target.classList.toggle('cards__heart_active');
   }
 }

@@ -10,7 +10,11 @@
 
 @import url(./__title/cards__title.css);
 
+@import url(./__heart-container/cards__heart-container.css);
+
 @import url(./__heart/cards__heart.css);
+
+@import url(./__hearts-number/cards__hearts-number.css);
 
 @import url(./__heart/_active/cards__heart_active.css);
 

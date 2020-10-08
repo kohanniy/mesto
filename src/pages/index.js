@@ -23,6 +23,8 @@ import PopupWithForm from '../components/PopupWithForm.js';
 
 import UserInfo from '../components/UserInfo.js';
 
+// import Api from '../components/Api.js';
+
 const popupShowImage = new PopupWithImage(popupShowImageSelector);
 
 const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector });
@@ -98,3 +100,7 @@ cardFormValidator.enableValidation();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupShowImage.setEventListeners();
+
+
+
+

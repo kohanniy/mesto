@@ -1,4 +1,8 @@
+@import url(./__img-container/profile__img-container.css);
+
 @import url(./__img/profile__img.css);
+
+@import url(./__avatar-btn/profile__avatar-btn.css);
 
 @import url(./__data/profile__data.css);
 

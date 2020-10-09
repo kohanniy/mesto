@@ -10,12 +10,14 @@
           column-gap: 18px;
   row-gap: 4px;
   margin-right: auto;
+  margin-left: 31px;
 }
 
 @media (max-width: 964px) {
   .profile__data {
     margin-bottom: 35px;
     margin-right: 0;
+    margin-left: 0;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;

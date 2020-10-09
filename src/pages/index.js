@@ -45,35 +45,18 @@ const api = new Api({
   }
 });
 
-api.getInitialCards()
-  .then((data) => {
-    const cardsList = new Section({
-      items: data,
-      renderer: (item) => {
-        const card = new Card(item, '#cardItemTemplate', handleCardClick);
-        const cardElement = card.generateCard();
-        cardsList.addItem(cardElement);
-      }
-    }, cardsContainerSelector);
-    cardsList.renderItems();
-  })
-
-
-// const cardsList = new Section({
-//   items: initialCards,
-//   renderer: (initialCard) => {
-//     createAndAddCard(initialCard);
-//   }
-// }, cardsContainerSelector);
-
-
+const cardsList = new Section({
+  renderer: (item) => {
+    createAndAddCard(item);
+  }
+}, cardsContainerSelector, api);
 
 //Создаем и добавляем карточку на страницу
-// function createAndAddCard(cardData) {
-//   const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
-//   const cardElement = card.generateCard();
-//   cardsList.addItem(cardElement);
-// }
+function createAndAddCard(cardData) {
+  const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
+  const cardElement = card.generateCard();
+  cardsList.addItem(cardElement);
+}
 
 //Колбэк сабмита формы профиля
 function handleProfileFormSubmit(userData) {
@@ -83,8 +66,11 @@ function handleProfileFormSubmit(userData) {
 
 //Колбэк сабмита формы добавления карточки
 function handleCardFormSubmit(cardData) {
-  createAndAddCard(cardData);
-  popupAddCard.close();
+  api.addCard(cardData)
+    .then((cardData) => {
+      createAndAddCard(cardData);
+      popupAddCard.close();
+    })
 }
 
 //Обработчик открытия формы профиля
@@ -109,8 +95,8 @@ function handleCardClick(name, link) {
   popupShowImage.open(name, link);
 }
 
-//Отрисовываем на странице заданные карточки
-// cardsList.renderItems();
+//Отрисовываем на странице карточки с сервера
+cardsList.renderItems();
 
 //Добавляем обработчики кнопкам открытия попапов с формой
 document.querySelector('.profile__edit-btn').addEventListener('click', handlePopupEditProfileOpen);

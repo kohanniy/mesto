@@ -7,6 +7,10 @@ export default class Section {
   }
 
   renderItems() {
+    // Promise.all(this._renderedItems)
+    //   .then((result) => {
+    //     this._renderer(result);
+    //   })
     this._renderedItems.forEach((item) => {
       this._renderer(item);
     });
@@ -15,4 +19,9 @@ export default class Section {
   addItem(element) {
     this._container.prepend(element);
   }
+
+  // _saveItem(element) {
+  //   this._api.addCard(element)
+  //     .then((data) => )
+  // }
 }

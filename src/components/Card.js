@@ -1,7 +1,6 @@
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
-    this._placeName = data.name;
-    this._pictureLink = data.link;
+    this._data = data;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -23,9 +22,9 @@ export default class Card {
     this._cardTitle = this._card.querySelector('.cards__title');
     this._setEventListeners();
 
-    this._cardImage.src = this._pictureLink;
-    this._cardImage.alt = this._placeName;
-    this._cardTitle.textContent = this._placeName;
+    this._cardImage.src = this._data.link;
+    this._cardImage.alt = this._data.name;
+    this._cardTitle.textContent = this._data.name;
 
     return this._card;
   }
@@ -45,7 +44,7 @@ export default class Card {
 
     //картинке
     this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._placeName, this._pictureLink);
+      this._handleCardClick(this._data);
     });
   }
 

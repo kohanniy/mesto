@@ -1,7 +1,6 @@
 import './index.css';
 
 import {
-  // initialCards,
   cardsContainerSelector,
   popupShowImageSelector,
   popupEditProfileSelector,
@@ -31,7 +30,7 @@ const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector 
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, handleProfileFormSubmit);
 
-const popupAddCard = new PopupWithForm(popupAddCardSelector, handleCardFormSubmit);
+const popupAddCard = new PopupWithForm(popupAddCardSelector, addCardToContainer);
 
 const profileFormValidator = new FormValidator(formObj, popupEditProfile.form);
 
@@ -45,14 +44,22 @@ const api = new Api({
   }
 });
 
-const cardsList = new Section({
-  renderer: (item) => {
-    createAndAddCard(item);
-  }
-}, cardsContainerSelector, api);
+const cardsList = new Section(rendererCard, cardsContainerSelector, api);
+
+// Колбэк сабмита формы добавления карточки
+function addCardToContainer(data) {
+  api.addCard(data)
+    .then(() => {
+      rendererCard(data);
+      popupAddCard.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
 
 //Создаем и добавляем карточку на страницу
-function createAndAddCard(cardData) {
+function rendererCard(cardData) {
   const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
@@ -62,15 +69,6 @@ function createAndAddCard(cardData) {
 function handleProfileFormSubmit(userData) {
   userInfo.setUserInfo(userData);
   popupEditProfile.close();
-}
-
-//Колбэк сабмита формы добавления карточки
-function handleCardFormSubmit(cardData) {
-  api.addCard(cardData)
-    .then((cardData) => {
-      createAndAddCard(cardData);
-      popupAddCard.close();
-    })
 }
 
 //Обработчик открытия формы профиля
@@ -91,8 +89,8 @@ function handlePopupAddCardOpen() {
 }
 
 //Колбэк для класса Card: открывает попап с картинкой
-function handleCardClick(name, link) {
-  popupShowImage.open(name, link);
+function handleCardClick(data) {
+  popupShowImage.open(data);
 }
 
 //Отрисовываем на странице карточки с сервера
@@ -110,7 +108,3 @@ cardFormValidator.enableValidation();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupShowImage.setEventListeners();
-
-
-
-

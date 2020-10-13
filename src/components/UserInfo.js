@@ -20,8 +20,8 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo(data) {
-    this._profileName.textContent = data.username;
-    this._profileDescription.textContent = data.activity;
+  updateUserInfo(data) {
+    this._profileName.textContent = data.name;
+    this._profileDescription.textContent = data.about;
   }
 }

@@ -40,9 +40,9 @@ export default class Api {
     })
   }
 
-  addCard(data) {
-    return fetch(`${this._url}cards`, {
-      method: 'POST',
+  setUserInfo(data) {
+    return fetch(`${this._url}users/me`, {
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data)
     }).then((res) => {

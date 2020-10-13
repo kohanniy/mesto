@@ -76,15 +76,18 @@ function rendererCard(cardData) {
 
 //Колбэк сабмита формы профиля
 function handleProfileFormSubmit(userData) {
-  userInfo.setUserInfo(userData);
-  popupEditProfile.close();
+  api.setUserInfo(userData)
+    .then(() => {
+      userInfo.updateUserInfo(userData);
+      popupEditProfile.close();
+    });
 }
 
 //Обработчик открытия формы профиля
 function handlePopupEditProfileOpen() {
   const profileData = userInfo.getUserInfo();
-  popupEditProfile.form.username.value = profileData.username;
-  popupEditProfile.form.activity.value = profileData.activity;
+  popupEditProfile.form.name.value = profileData.username;
+  popupEditProfile.form.about.value = profileData.activity;
   popupEditProfile.open();
   profileFormValidator.hideErrors();
   profileFormValidator.enableSubmitButton();
@@ -105,6 +108,7 @@ function handleCardClick(data) {
 //Отрисовываем на странице карточки с сервера
 cardsList.renderItems(initialCards);
 
+//Отображаем данные профиля
 userInfo.renderProfile(userInfoFromServer);
 
 //Добавляем обработчики кнопкам открытия попапов с формой

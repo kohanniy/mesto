@@ -31,87 +31,24 @@ export default class Api {
     })
   }
 
-  // getUserInfo() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me', {
-  //     method: 'GET',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54'
-  //     }
-  //   })
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((user) => {
-  //     console.log(user);
-  //   })
-  //   .catch((rej) => {
-  //     console.log('Ошибка');
-  //   })
-  // }
+  getUserInfo() {
+    return fetch(`${this._url}users/me`, {
+      method: 'GET',
+      headers: this._headers
+    }).then((res) => {
+      return this._checkResponse(res);
+    })
+  }
 
-  // setUserInfo() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: 'Marie Skłodowska Curie',
-  //       about: 'Physicist and Chemist'
-  //     })
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((rej) => {
-  //       console.log('ошибка');
-  //     })
-  // }
-
-  // getInitialCards() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
-  //     method: 'GET',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54'
-  //     }
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((cards) => {
-  //       console.log(cards);
-  //     })
-  //     .catch((rej) => {
-  //       console.log('ошибка');
-  //     })
-  // }
-
-  // addCard() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
-  //     method: 'POST',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: 'Байкал',
-  //       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  //     })
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((rej) => {
-  //       console.log('ошибка');
-  //     })
-  // }
+  addCard(data) {
+    return fetch(`${this._url}cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    }).then((res) => {
+      this._checkResponse(res);
+    })
+  }
 
   // deleteCard() {
   //   fetch('https://mesto.nomoreparties.co/v1/cohortId/cards/cardId', {

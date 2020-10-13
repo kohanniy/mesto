@@ -6,6 +6,7 @@ import {
   popupEditProfileSelector,
   profileNameSelector,
   profileDescriptionSelector,
+  avatarSelector,
   formObj,
   popupAddCardSelector
 } from '../utils/constants.js';
@@ -26,7 +27,7 @@ import Api from '../components/Api.js';
 
 const popupShowImage = new PopupWithImage(popupShowImageSelector);
 
-const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector });
+const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector, avatarSelector });
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, handleProfileFormSubmit);
 
@@ -44,7 +45,15 @@ const api = new Api({
   }
 });
 
-const cardsList = new Section(rendererCard, cardsContainerSelector, api);
+const initialCards = api.getInitialCards();
+
+const userInfoFromServer = api.getUserInfo();
+
+const cardsList = new Section({
+  renderer: (item) => {
+    rendererCard(item);
+  }
+}, cardsContainerSelector);
 
 // Колбэк сабмита формы добавления карточки
 function addCardToContainer(data) {
@@ -94,7 +103,9 @@ function handleCardClick(data) {
 }
 
 //Отрисовываем на странице карточки с сервера
-cardsList.renderItems();
+cardsList.renderItems(initialCards);
+
+userInfo.renderProfile(userInfoFromServer);
 
 //Добавляем обработчики кнопкам открытия попапов с формой
 document.querySelector('.profile__edit-btn').addEventListener('click', handlePopupEditProfileOpen);

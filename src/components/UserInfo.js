@@ -16,12 +16,17 @@ export default class UserInfo {
   getUserInfo() {
     return {
       username: this._profileName.textContent,
-      activity: this._profileDescription.textContent
+      activity: this._profileDescription.textContent,
+      avatar: this._profileAvatar.src
     };
   }
 
   updateUserInfo(data) {
     this._profileName.textContent = data.name;
     this._profileDescription.textContent = data.about;
+  }
+
+  updateAvatar(data) {
+    this._profileAvatar.src = data.avatar;
   }
 }

@@ -13,10 +13,12 @@ export const popupShowImageSelector = '.popup_type_view-pic';
 
 export const popupEditProfileSelector = '.popup_type_edit-profile';
 
+export const popupAddCardSelector = '.popup_type_add-card';
+
+export const popupUpdateAvatarSelector = '.popup_type_update-avatar';
+
 export const profileNameSelector = '.profile__name';
 
 export const profileDescriptionSelector = '.profile__description';
 
 export const avatarSelector = '.profile__img';
-
-export const popupAddCardSelector = '.popup_type_add-card';

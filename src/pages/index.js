@@ -4,6 +4,7 @@ import {
   cardsContainerSelector,
   popupShowImageSelector,
   popupEditProfileSelector,
+  popupUpdateAvatarSelector,
   profileNameSelector,
   profileDescriptionSelector,
   avatarSelector,
@@ -31,11 +32,15 @@ const userInfo = new UserInfo({ profileNameSelector, profileDescriptionSelector,
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, handleProfileFormSubmit);
 
-const popupAddCard = new PopupWithForm(popupAddCardSelector, addCardToContainer);
+const popupAddCard = new PopupWithForm(popupAddCardSelector, handleCardFormSubmit);
+
+const popupUpdateAvatar = new PopupWithForm(popupUpdateAvatarSelector, handleAvatarFormSubmit)
 
 const profileFormValidator = new FormValidator(formObj, popupEditProfile.form);
 
 const cardFormValidator = new FormValidator(formObj, popupAddCard.form);
+
+const avatarFormValidator = new FormValidator(formObj, popupUpdateAvatar.form)
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-16/',
@@ -55,8 +60,15 @@ const cardsList = new Section({
   }
 }, cardsContainerSelector);
 
+//Создаем и добавляем карточку на страницу
+function rendererCard(cardData) {
+  const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
+  const cardElement = card.generateCard();
+  cardsList.addItem(cardElement);
+}
+
 // Колбэк сабмита формы добавления карточки
-function addCardToContainer(data) {
+function handleCardFormSubmit(data) {
   api.addCard(data)
     .then(() => {
       rendererCard(data);
@@ -65,13 +77,6 @@ function addCardToContainer(data) {
     .catch((err) => {
       console.log(err);
     })
-}
-
-//Создаем и добавляем карточку на страницу
-function rendererCard(cardData) {
-  const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
-  const cardElement = card.generateCard();
-  cardsList.addItem(cardElement);
 }
 
 //Колбэк сабмита формы профиля
@@ -83,7 +88,16 @@ function handleProfileFormSubmit(userData) {
     });
 }
 
-//Обработчик открытия формы профиля
+//Колбэк сбамита формы с аватаром
+function handleAvatarFormSubmit(data) {
+  api.setAvatar(data)
+    .then(() => {
+      userInfo.updateAvatar(data);
+      popupUpdateAvatar.close();
+    })
+}
+
+//Обработчик открытия попапов с формой
 function handlePopupEditProfileOpen() {
   const profileData = userInfo.getUserInfo();
   popupEditProfile.form.name.value = profileData.username;
@@ -93,11 +107,17 @@ function handlePopupEditProfileOpen() {
   profileFormValidator.enableSubmitButton();
 }
 
-//Обработчик открытия формы добавления карточки
 function handlePopupAddCardOpen() {
   popupAddCard.open();
   cardFormValidator.hideErrors();
   cardFormValidator.disableSubmitButton();
+}
+
+function handlePopupUpdateAvatarOpen() {
+  popupUpdateAvatar.form.avatar.value = userInfo.getUserInfo().avatar;
+  popupUpdateAvatar.open();
+  avatarFormValidator.hideErrors();
+  avatarFormValidator.enableSubmitButton();
 }
 
 //Колбэк для класса Card: открывает попап с картинкой
@@ -114,12 +134,15 @@ userInfo.renderProfile(userInfoFromServer);
 //Добавляем обработчики кнопкам открытия попапов с формой
 document.querySelector('.profile__edit-btn').addEventListener('click', handlePopupEditProfileOpen);
 document.querySelector('.profile__add-btn').addEventListener('click', handlePopupAddCardOpen);
+document.querySelector('.profile__avatar-btn').addEventListener('click', handlePopupUpdateAvatarOpen);
 
 //Включаем валидацию форм
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 
 //Добавляем попапам обработчики
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupShowImage.setEventListeners();
+popupUpdateAvatar.setEventListeners();

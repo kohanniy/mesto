@@ -11,6 +11,9 @@ export default class Section {
         this._renderer(item);
       });
     })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   addItem(element) {

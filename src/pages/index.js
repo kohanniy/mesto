@@ -9,7 +9,8 @@ import {
   profileDescriptionSelector,
   avatarSelector,
   formObj,
-  popupAddCardSelector
+  popupAddCardSelector,
+  popupDeleteCardSelector
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
@@ -25,6 +26,8 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
 import Api from '../components/Api.js';
+
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 
 const popupShowImage = new PopupWithImage(popupShowImageSelector);
 
@@ -60,14 +63,30 @@ const cardsList = new Section({
   }
 }, cardsContainerSelector);
 
+function rejectPromise(err) {
+  console.log(err);
+}
+
+// function handleDeleteCard(element) {
+//   element.remove();
+//   element = null;
+// }
+
+//Колбэки для карточки
+// function deleteButtonClick() {
+//   const confirmationPopup = new PopupWithConfirmation(popupDeleteCardSelector, handleDeleteCard);
+//   confirmationPopup.setEventListeners();
+//   confirmationPopup.open();
+// }
+
 //Создаем и добавляем карточку на страницу
 function rendererCard(cardData) {
-  const card = new Card(cardData, '#cardItemTemplate', handleCardClick);
+  const card = new Card(cardData, '#cardItemTemplate', handleCardClick, deleteButtonClick);
   const cardElement = card.generateCard();
   cardsList.addItem(cardElement);
 }
 
-// Колбэк сабмита формы добавления карточки
+// Колбэки для сабмита форм
 function handleCardFormSubmit(data) {
   api.addCard(data)
     .then(() => {
@@ -75,25 +94,29 @@ function handleCardFormSubmit(data) {
       popupAddCard.close();
     })
     .catch((err) => {
-      console.log(err);
+      rejectPromise(err);
     })
 }
 
-//Колбэк сабмита формы профиля
 function handleProfileFormSubmit(userData) {
   api.setUserInfo(userData)
     .then(() => {
       userInfo.updateUserInfo(userData);
       popupEditProfile.close();
-    });
+    })
+    .catch((err) => {
+      rejectPromise(err);
+    })
 }
 
-//Колбэк сбамита формы с аватаром
 function handleAvatarFormSubmit(data) {
   api.setAvatar(data)
     .then(() => {
       userInfo.updateAvatar(data);
       popupUpdateAvatar.close();
+    })
+    .catch((err) => {
+      rejectPromise(err);
     })
 }
 

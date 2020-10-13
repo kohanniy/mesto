@@ -11,6 +11,9 @@ export default class UserInfo {
       this._profileDescription.textContent = userData.about;
       this._profileAvatar.src = userData.avatar;
     })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   getUserInfo() {

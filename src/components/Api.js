@@ -2,14 +2,16 @@ export default class Api {
   constructor(config) {
     this._url = config.url;
     this._headers = config.headers;
+    this.addCard = this.addCard.bind(this);
+    this._checkResponse = this._checkResponse.bind(this);
   }
 
   _checkResponse(res) {
-    if(res.ok) {
+    if (res.ok) {
       return res.json();
     }
 
-    return Promise.reject('Произошла ошибка');
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getInitialCards() {
@@ -18,16 +20,6 @@ export default class Api {
       headers: this._headers
     }).then((res) => {
       return this._checkResponse(res);
-    })
-  }
-
-  addCard(data) {
-    return fetch(`${this._url}cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify(data)
-    }).then((res) => {
-      this._checkResponse(res);
     })
   }
 
@@ -40,13 +32,28 @@ export default class Api {
     })
   }
 
+  getDataForRendered() {
+    return Promise.all([ this.getInitialCards(), this.getUserInfo() ])
+  }
+
+  addCard(data) {
+    return fetch(`${this._url}cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+    .then((res) => {
+      return this._checkResponse(res);
+    })
+  }
+
   setUserInfo(data) {
     return fetch(`${this._url}users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data)
     }).then((res) => {
-      this._checkResponse(res);
+      return this._checkResponse(res);
     })
   }
 
@@ -56,18 +63,18 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     }).then((res) => {
-      this._checkResponse(res);
+      return this._checkResponse(res);
     })
   }
 
-  // deleteCard() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohortId/cards/cardId', {
-  //     method: 'DELETE',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54'
-  //     }
-  //   })
-  // }
+  deleteCard(data) {
+    return fetch(`${this._url}cards/${data}`, {
+      method: 'DELETE',
+      headers: this._headers
+    }).then((res) => {
+      return this._checkResponse(res);
+    })
+  }
 
   // putLike() {
   //   fetch('https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId', {

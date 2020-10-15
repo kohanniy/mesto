@@ -1,9 +1,11 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick, handleDeleteButtonClick) {
+  constructor({ data, handleDeleteIconClick, handleLikeClick, handleCardClick }, userID, cardSelector) {
     this._data = data;
-    this._cardSelector = cardSelector;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
-    this._handleDeleteButtonClick = handleDeleteButtonClick;
+    this._userId = userID;
+    this._cardSelector = cardSelector;
   }
 
   //получаем шаблон карточки
@@ -19,15 +21,20 @@ export default class Card {
   //создаем карточку
   generateCard() {
     this._card = this._getTemplate();
-    this._cardImage = this._card.querySelector('.cards__image');
-    this._cardTitle = this._card.querySelector('.cards__title');
-    this._cardLikes = this._card.querySelector('.cards__hearts-number');
+    this._image = this._card.querySelector('.cards__image');
+    this._title = this._card.querySelector('.cards__title');
+    this._deleteIcon = this._card.querySelector('.cards__delete-btn');
+    this._likeIcon = this._card.querySelector('.cards__heart');
+    this._numberLikes = this._card.querySelector('.cards__hearts-number');
     this._setEventListeners();
 
-    this._cardImage.src = this._data.link;
-    this._cardImage.alt = this._data.name;
-    this._cardTitle.textContent = this._data.name;
-    this._cardLikes.textContent = this._data.likes.length;
+    this._image.src = this._data.link;
+    this._image.alt = this._data.name;
+    this._title.textContent = this._data.name;
+    this._numberLikes.textContent = this._data.likes.length;
+    if (this._userId === this._data.owner._id) {
+      this._deleteIcon.style.display = 'block';
+    }
 
     return this._card;
   }
@@ -36,17 +43,17 @@ export default class Card {
   _setEventListeners() {
 
     //кнопке удаления карточки
-    this._card.querySelector('.cards__delete-btn').addEventListener('click', () => {
-      this._handleDeleteButtonClick();
+    this._deleteIcon.addEventListener('click', () => {
+      this._handleDeleteIconClick(this._card);
     });
 
     //сердечку
-    this._card.querySelector('.cards__heart').addEventListener('click', (evt) => {
-      this._handleLikeButtonClick(evt);
+    this._likeIcon.addEventListener('click', (evt) => {
+      this._handleLikeClick(evt);
     });
 
     //картинке
-    this._cardImage.addEventListener('click', () => {
+    this._image.addEventListener('click', () => {
       this._handleCardClick(this._data);
     });
   }
@@ -57,8 +64,8 @@ export default class Card {
   //   this._card = null;
   // };
 
-  //обработчик: ставим и убираем лайк
-  _handleLikeButtonClick(evt) {
-    evt.target.classList.toggle('cards__heart_active');
-  }
+  // //обработчик: ставим и убираем лайк
+  // _handleLikeButtonClick(evt) {
+  //   evt.target.classList.toggle('cards__heart_active');
+  // }
 }

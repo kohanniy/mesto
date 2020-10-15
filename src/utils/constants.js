@@ -17,10 +17,12 @@ export const popupAddCardSelector = '.popup_type_add-card';
 
 export const popupUpdateAvatarSelector = '.popup_type_update-avatar';
 
-export const popupDeleteCardSelector = '.popup_type_confirm-deletion';
+export const popupDeleteConfirmSelector = '.popup_type_confirm-deletion';
 
 export const profileNameSelector = '.profile__name';
 
 export const profileDescriptionSelector = '.profile__description';
 
 export const avatarSelector = '.profile__img';
+
+export const profileSection = document.querySelector('.profile');

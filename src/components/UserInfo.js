@@ -5,31 +5,20 @@ export default class UserInfo {
     this._profileAvatar = document.querySelector(avatarSelector);
   }
 
-  renderProfile(data) {
-    data.then((userData) => {
-      this._profileName.textContent = userData.name;
-      this._profileDescription.textContent = userData.about;
-      this._profileAvatar.src = userData.avatar;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  getUserInfo() {
-    return {
-      username: this._profileName.textContent,
-      activity: this._profileDescription.textContent,
-      avatar: this._profileAvatar.src
-    };
-  }
-
-  updateUserInfo(data) {
+  renderProfileInfo(data) {
     this._profileName.textContent = data.name;
     this._profileDescription.textContent = data.about;
   }
 
-  updateAvatar(data) {
+  renderAvatar(data) {
     this._profileAvatar.src = data.avatar;
+  }
+
+  getUserInfo() {
+    return {
+      name: this._profileName.textContent,
+      about: this._profileDescription.textContent,
+      avatar: this._profileAvatar.src
+    };
   }
 }

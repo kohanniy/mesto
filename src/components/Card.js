@@ -26,6 +26,9 @@ export default class Card {
     this._deleteIcon = this._card.querySelector('.cards__delete-btn');
     this._likeIcon = this._card.querySelector('.cards__heart');
     this._numberLikes = this._card.querySelector('.cards__hearts-number');
+    const someLike = this._data.likes.some((like) => {
+      return like._id === this._userId;
+    })
     this._setEventListeners();
 
     this._image.src = this._data.link;
@@ -34,6 +37,9 @@ export default class Card {
     this._numberLikes.textContent = this._data.likes.length;
     if (this._userId === this._data.owner._id) {
       this._deleteIcon.style.display = 'block';
+    }
+    if (someLike === true) {
+      this._likeIcon.classList.add('cards__heart_active');
     }
 
     return this._card;
@@ -49,7 +55,7 @@ export default class Card {
 
     //сердечку
     this._likeIcon.addEventListener('click', (evt) => {
-      this._handleLikeClick(evt);
+      this._handleLikeClick(evt, this._data, this._numberLikes);
     });
 
     //картинке
@@ -57,15 +63,4 @@ export default class Card {
       this._handleCardClick(this._data);
     });
   }
-
-   //обработчик: удаляем и обнуляем карточку
-  // _handleDeleteButtonClick() {
-  //   this._card.remove();
-  //   this._card = null;
-  // };
-
-  // //обработчик: ставим и убираем лайк
-  // _handleLikeButtonClick(evt) {
-  //   evt.target.classList.toggle('cards__heart_active');
-  // }
 }

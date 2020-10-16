@@ -18,7 +18,8 @@ export default class Api {
     return fetch(`${this._url}cards`, {
       method: 'GET',
       headers: this._headers
-    }).then((res) => {
+    })
+    .then((res) => {
       return this._checkResponse(res);
     })
   }
@@ -27,7 +28,8 @@ export default class Api {
     return fetch(`${this._url}users/me`, {
       method: 'GET',
       headers: this._headers
-    }).then((res) => {
+    })
+    .then((res) => {
       return this._checkResponse(res);
     })
   }
@@ -52,7 +54,8 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data)
-    }).then((res) => {
+    })
+    .then((res) => {
       return this._checkResponse(res);
     })
   }
@@ -62,47 +65,39 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data)
-    }).then((res) => {
+    })
+    .then((res) => {
       return this._checkResponse(res);
     })
   }
 
-  deleteCard(data) {
-    return fetch(`${this._url}cards/${data}`, {
+  deleteCard(id) {
+    return fetch(`${this._url}cards/${id}`, {
       method: 'DELETE',
       headers: this._headers
-    }).then((res) => {
+    })
+    .then((res) => {
       return this._checkResponse(res);
     })
   }
 
-  // putLike() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId', {
-  //     method: 'PUT',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54'
-  //     }
-  //   })
-  // }
+  putLike(id) {
+    return fetch(`${this._url}cards/likes/${id}`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then((res) => {
+      return this._checkResponse(res);
+    })
+  }
 
-  // deleteLike() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId', {
-  //     method: 'DELETE',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54'
-  //     }
-  //   })
-  // }
-
-  // updateAvatar() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: '1282f84b-7da3-48cb-b9e7-a66ba2d4bc54'
-  //     },
-  //     body: JSON.stringify({
-  //       avatar: ''
-  //     })
-  //   })
-  // }
+  deleteLike(id) {
+    return fetch(`${this._url}cards/likes/${id}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then((res) => {
+      return this._checkResponse(res);
+    })
+  }
 }

@@ -135,10 +135,11 @@ api.getDataForRendered()
         .then((res) => {
           evt.target.classList.add('cards__heart_active');
           numberLikes.textContent = res.likes.length;
+          data.likes = res.likes;
         })
-        // .catch((err) => {
-        //   rejectPromise(err);
-        // })
+        .catch((err) => {
+          rejectPromise(err);
+        })
     }
 
     //Удаление лайка
@@ -147,10 +148,11 @@ api.getDataForRendered()
         .then((res) => {
           evt.target.classList.remove('cards__heart_active');
           numberLikes.textContent = res.likes.length;
+          data.likes = res.likes;
         })
-        // .catch((err) => {
-        //   rejectPromise(err);
-        // })
+        .catch((err) => {
+          rejectPromise(err);
+        })
     }
 
     //Создание и добавление карточки

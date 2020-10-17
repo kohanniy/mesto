@@ -14,6 +14,8 @@
 
 @import url(./__button/_disabled/popup__button_disabled.css);
 
+@import url(./__button/_isLoading/popup__button_isLoading.css);
+
 @import url(./__close-btn/popup__close-btn.css);
 
 @import url(./__container/popup__container.css);

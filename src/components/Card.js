@@ -1,10 +1,10 @@
 export default class Card {
-  constructor({ data, handleDeleteIconClick, handleLikeClick, handleCardClick }, userID, cardSelector) {
+  constructor({ data, handleDeleteIconClick, handleLikeClick, handleCardClick }, userId, cardSelector) {
     this._data = data;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
-    this._userId = userID;
+    this._userId = userId;
     this._cardSelector = cardSelector;
   }
 
@@ -45,20 +45,15 @@ export default class Card {
     return this._card;
   }
 
-  //подключаем обработчики к...
   _setEventListeners() {
-
-    //кнопке удаления карточки
     this._deleteIcon.addEventListener('click', () => {
       this._handleDeleteIconClick(this._card);
     });
 
-    //сердечку
     this._likeIcon.addEventListener('click', (evt) => {
       this._handleLikeClick(evt, this._data, this._numberLikes);
     });
 
-    //картинке
     this._image.addEventListener('click', () => {
       this._handleCardClick(this._data);
     });

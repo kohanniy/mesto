@@ -8,9 +8,10 @@ export default class Section {
     this._container.prepend(element);
   }
 
-  renderItems(items, id) {
-    items.forEach((item) => {
-      this._renderer(item, id);
+  renderItems(items) {
+    const itemsReverse = items.reverse();
+    itemsReverse.forEach((item) => {
+      this._renderer(item);
     });
   }
 }

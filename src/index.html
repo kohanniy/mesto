@@ -39,7 +39,8 @@
         <span id="username-input-error" class="popup__input-error"></span>
         <input id="activity-input" type="text" name="about" class="popup__input activity" placeholder="Род занятий. Например, программист" minlength="2" maxlength="200" required>
         <span id="activity-input-error" class="popup__input-error"></span>
-        <button type="submit" class="popup__button">Сохранить</button>
+        <button type="submit" class="popup__button popup__button_default">Сохранить</button>
+        <button type="button" class="popup__button popup__button_isLoading">Сохранение...</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_edit-profile"></button>
       </form>
     </div>
@@ -50,7 +51,8 @@
         <span id="place-name-input-error" class="popup__input-error"></span>
         <input id="picture-link-input" type="url" name="link" class="popup__input picture-link" placeholder="Ссылка на картинку" required>
         <span id="picture-link-input-error" class="popup__input-error"></span>
-        <button type="submit" class="popup__button popup__button_disabled" disabled>Создать</button>
+        <button type="submit" class="popup__button popup__button_default popup__button_disabled" disabled>Создать</button>
+        <button type="button" class="popup__button popup__button_isLoading">Сохранение...</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_add-card"></button>
       </form>
     </div>
@@ -66,7 +68,8 @@
     <div class="popup popup_type_confirm-deletion">
       <div class="popup__container popup__container_card-deletion">
         <h3 class="popup__heading popup__heading_card-deletion">Вы уверены?</h3>
-        <button type="submit" class="popup__button">Да</button>
+        <button type="submit" class="popup__button popup__button_default">Да</button>
+        <button type="button" class="popup__button popup__button_isLoading">Удаление...</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn"></button>
       </div>
     </div>
@@ -75,7 +78,8 @@
         <h3 class="popup__heading">Обновить аватар</h3>
         <input id="avatar-link-input" type="url" name="avatar" class="popup__input avatar-link" placeholder="Ссылка на аватар" required>
         <span id="avatar-link-input-error" class="popup__input-error"></span>
-        <button type="submit" class="popup__button popup__button_disabled">Сохранить</button>
+        <button type="submit" class="popup__button popup__button_default popup__button_disabled">Сохранить</button>
+        <button type="button" class="popup__button popup__button_isLoading">Сохранение...</button>
         <button type="button" aria-label="Закрыть" class="popup__close-btn popup__close-btn_for_add-card"></button>
       </form>
     </div>

@@ -12,9 +12,12 @@ import {
   formObj,
   popupAddCardSelector,
   popupDeleteConfirmSelector,
+} from '../utils/constants.js';
+
+import {
   rejectPromise,
   renderLoading
-} from '../utils/constants.js';
+} from '../utils/utils.js';
 
 import Card from '../components/Card.js';
 
@@ -133,9 +136,9 @@ api.getDataForRendered()
           evt.target.classList.add('cards__heart_active');
           numberLikes.textContent = res.likes.length;
         })
-        .catch((err) => {
-          rejectPromise(err);
-        })
+        // .catch((err) => {
+        //   rejectPromise(err);
+        // })
     }
 
     //Удаление лайка
@@ -145,9 +148,9 @@ api.getDataForRendered()
           evt.target.classList.remove('cards__heart_active');
           numberLikes.textContent = res.likes.length;
         })
-        .catch((err) => {
-          rejectPromise(err);
-        })
+        // .catch((err) => {
+        //   rejectPromise(err);
+        // })
     }
 
     //Создание и добавление карточки

@@ -56,20 +56,10 @@ const api = new Api({
 api.getDataForRendered()
   .then((data) => {
     const [ cardsData, userData ] = data;
-    const userId = userData._id;
-    const cardsList = new Section({
-      renderer: (item) => {
-        renderedCard(item, userId);
-      }
-    }, cardsContainerSelector);
-
-    //Отрисовываем данные профиля и картинки
-    userInfo.renderProfileInfo(userData);
-    userInfo.renderAvatar(userData);
-    cardsList.renderItems(cardsData, userId);
+    // const userId = userData._id;
 
     //Создание и добавление карточки
-    function renderedCard(cardData, userId) {
+    const renderedCard = (cardData, userId) => {
       const card = new Card({
         data: cardData,
         handleDeleteIconClick: (cardElement) => {
@@ -77,7 +67,7 @@ api.getDataForRendered()
         },
         handleLikeClick: (evt, data, numberLikes) => {
           const findUserLike = data.likes.find((like) => {
-            return like._id === userId;
+            return like._id === userData._id;
           })
 
           if (findUserLike === undefined) {
@@ -94,6 +84,19 @@ api.getDataForRendered()
       const cardElement = card.generateCard();
       cardsList.addItem(cardElement);
     }
+
+
+
+    const cardsList = new Section({
+      renderer: (item) => {
+        renderedCard(item, userId);
+      }
+    }, cardsContainerSelector);
+
+    //Отрисовываем данные профиля и картинки
+    userInfo.renderProfileInfo(userData);
+    userInfo.renderAvatar(userData);
+    cardsList.renderItems(cardsData, userId);
 
     return { renderedCard, userId };
   })

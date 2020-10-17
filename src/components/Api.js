@@ -1,12 +1,10 @@
 export default class Api {
-  constructor(config) {
-    this._url = config.url;
-    this._headers = config.headers;
-    this.addCard = this.addCard.bind(this);
-    this._checkResponse = this._checkResponse.bind(this);
+  constructor({ url, headers }) {
+    this._url = url;
+    this._headers = headers;
   }
 
-  _checkResponse(res) {
+  _parseResponseFromServer(res) {
     if (res.ok) {
       return res.json();
     }
@@ -20,7 +18,7 @@ export default class Api {
       headers: this._headers
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -30,7 +28,7 @@ export default class Api {
       headers: this._headers
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -45,7 +43,7 @@ export default class Api {
       body: JSON.stringify(data)
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -56,7 +54,7 @@ export default class Api {
       body: JSON.stringify(data)
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -67,7 +65,7 @@ export default class Api {
       body: JSON.stringify(data)
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -77,7 +75,7 @@ export default class Api {
       headers: this._headers
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -87,7 +85,7 @@ export default class Api {
       headers: this._headers
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 
@@ -97,7 +95,7 @@ export default class Api {
       headers: this._headers
     })
     .then((res) => {
-      return this._checkResponse(res);
+      return this._parseResponseFromServer(res);
     })
   }
 }

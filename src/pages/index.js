@@ -129,13 +129,17 @@ api.getDataForRendered()
   .then((data) => {
     const [ cardsData, userData ] = data;
 
+    const updateNumberLike = (data, res, numberLikes) => {
+      numberLikes.textContent = res.likes.length;
+      data.likes = res.likes;
+    }
+
     //Добавление лайка
     const putLike = (evt, data, numberLikes) => {
       api.putLike(data._id)
         .then((res) => {
           evt.target.classList.add('cards__heart_active');
-          numberLikes.textContent = res.likes.length;
-          data.likes = res.likes;
+          updateNumberLike(data, res, numberLikes);
         })
         .catch((err) => {
           rejectPromise(err);
@@ -147,8 +151,7 @@ api.getDataForRendered()
       api.deleteLike(data._id)
         .then((res) => {
           evt.target.classList.remove('cards__heart_active');
-          numberLikes.textContent = res.likes.length;
-          data.likes = res.likes;
+          updateNumberLike(data, res, numberLikes);
         })
         .catch((err) => {
           rejectPromise(err);
